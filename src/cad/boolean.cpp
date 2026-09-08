@@ -8,6 +8,7 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <numeric>
 #include <optional>
 #include <ranges>
 #include <set>
@@ -346,6 +347,31 @@ struct QuantizedPoint {
     }
     const std::size_t boundary_vertex_count = part.vertices.size();
 
+    // Boolean reconstruction used to test every welded vertex against every
+    // polygon edge when closing BSP T-junctions.  Detailed circular cuts make
+    // that quadratic even though only vertices inside an edge's coordinate
+    // interval can possibly lie on it.  Keep the exact geometric test below,
+    // but use a sorted index on the edge's dominant axis to discard impossible
+    // candidates first.  The final (amount, vertex index) sort preserves the
+    // deterministic boundary order produced by the exhaustive scan.
+    std::array<std::vector<std::size_t>, 3> vertices_by_axis;
+    const auto coordinate = [&](std::size_t vertex, std::size_t axis) {
+        const auto& point = part.vertices[vertex];
+        return axis == 0 ? point.x : axis == 1 ? point.y : point.z;
+    };
+    for (auto& index : vertices_by_axis) {
+        index.resize(boundary_vertex_count);
+        std::iota(index.begin(), index.end(), std::size_t{});
+    }
+    for (std::size_t axis = 0; axis < vertices_by_axis.size(); ++axis) {
+        std::ranges::sort(vertices_by_axis[axis], [&](std::size_t first, std::size_t second) {
+            const double first_coordinate = coordinate(first, axis);
+            const double second_coordinate = coordinate(second, axis);
+            return first_coordinate < second_coordinate ||
+                   (first_coordinate == second_coordinate && first < second);
+        });
+    }
+
     std::size_t conforming_split_count = 0;
     std::size_t degenerate_count = 0;
     std::size_t duplicate_count = 0;
@@ -367,7 +393,35 @@ struct QuantizedPoint {
                 boundary.push_back(start_index);
 
             std::vector<std::pair<double, std::size_t>> points_on_edge;
-            for (std::size_t candidate = 0; candidate < boundary_vertex_count; ++candidate) {
+            const std::array<double, 3> direction_components{direction.x, direction.y,
+                                                             direction.z};
+            const auto dominant_axis = static_cast<std::size_t>(std::distance(
+                direction_components.begin(),
+                std::ranges::max_element(direction_components, {}, [](double value) {
+                    return std::abs(value);
+                })));
+            const auto& candidate_index = vertices_by_axis[dominant_axis];
+            const double start_coordinate = coordinate(start_index, dominant_axis);
+            const auto finish_index = vertex_index(finish);
+            const double finish_coordinate = coordinate(finish_index, dominant_axis);
+            constexpr double candidate_tolerance = epsilon * 8.0;
+            const double minimum_coordinate =
+                std::min(start_coordinate, finish_coordinate) - candidate_tolerance;
+            const double maximum_coordinate =
+                std::max(start_coordinate, finish_coordinate) + candidate_tolerance;
+            const auto first_candidate =
+                std::ranges::lower_bound(candidate_index, minimum_coordinate, {},
+                                         [&](std::size_t vertex) {
+                                             return coordinate(vertex, dominant_axis);
+                                         });
+            const auto last_candidate =
+                std::ranges::upper_bound(candidate_index, maximum_coordinate, {},
+                                         [&](std::size_t vertex) {
+                                             return coordinate(vertex, dominant_axis);
+                                         });
+            for (auto candidate_it = first_candidate; candidate_it != last_candidate;
+                 ++candidate_it) {
+                const auto candidate = *candidate_it;
                 if (candidate == start_index)
                     continue;
                 const Vector3 offset = subtract(part.vertices[candidate], start);
@@ -375,7 +429,8 @@ struct QuantizedPoint {
                 if (amount <= epsilon || amount >= 1.0 - epsilon)
                     continue;
                 const Point3 projected = add(start, scale(direction, amount));
-                if (magnitude(subtract(part.vertices[candidate], projected)) <= epsilon * 8.0)
+                if (magnitude(subtract(part.vertices[candidate], projected)) <=
+                    candidate_tolerance)
                     points_on_edge.emplace_back(amount, candidate);
             }
             std::ranges::sort(points_on_edge);
