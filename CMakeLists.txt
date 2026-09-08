@@ -6,7 +6,7 @@ if(CMAKE_HOST_APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0" CACHE STRING "Minimum supported macOS version" FORCE)
 endif()
 
-set(ICAD_PROJECT_VERSION "0.0.1" CACHE STRING
+set(ICAD_PROJECT_VERSION "0.0.10" CACHE STRING
     "Numeric ICAD version used by CMake and native platform metadata")
 
 project(

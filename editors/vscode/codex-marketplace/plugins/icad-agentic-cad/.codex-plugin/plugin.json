@@ -1,6 +1,6 @@
 {
   "name": "icad-agentic-cad",
-  "version": "0.0.1-alpha+codex.20260828220329",
+  "version": "0.0.10-alpha+codex.20260908212217",
   "description": "Engineering-brief-first prompt preparation, blueprint reasoning, visual feedback, native agentic CAD design, standards-aware assembly, validation, animation, and manufacturing export with ICAD.",
   "author": {
     "name": "Valori Systems"
