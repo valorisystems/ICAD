@@ -271,7 +271,12 @@ auto bom_json(const compiler::ir::Project& project) -> std::string {
             missing_fields.push_back("length");
         if (specification.property_class.empty())
             missing_fields.push_back("property_class");
-        missing_fields.insert(missing_fields.end(), {"finish", "nut", "washer"});
+        // Keep these as individual appends. GCC 13 can misdiagnose the
+        // initializer-list vector insertion as an out-of-bounds memcpy under
+        // Release optimization with warnings promoted to errors.
+        missing_fields.push_back("finish");
+        missing_fields.push_back("nut");
+        missing_fields.push_back("washer");
         const bool procurement_ready = total.all_explicit && missing_fields.empty();
         all_fasteners_procurement_ready = all_fasteners_procurement_ready && procurement_ready;
         stream << "{\"item\":" << fastener_index << ",\"type\":\"purchased_fastener\""
