@@ -4,6 +4,7 @@
 #include "icad/compiler/dependency_graph.hpp"
 #include <algorithm>
 #include <array>
+#include <charconv>
 #include <cmath>
 #include <cstdint>
 #include <filesystem>
@@ -20,6 +21,22 @@ namespace icad::scene {
 namespace {
 
 [[nodiscard]] auto json_string(std::string_view value) -> std::string;
+
+template <typename Number>
+auto write_json_number(std::ostream& output, Number value) -> void {
+    // Geometry payloads contain millions of numeric values. std::ostream's
+    // locale-aware formatting dominated incremental-preview serialization on
+    // Intel macOS, even when only one body was rebuilt. to_chars is
+    // allocation-free and locale-independent while preserving round-trip
+    // precision for floating-point coordinates.
+    char buffer[64];
+    // The default floating-point overload emits the shortest representation
+    // that round-trips to the exact source value, avoiding redundant digits in
+    // the live-preview payload without reducing geometric precision.
+    const auto converted = std::to_chars(buffer, buffer + sizeof(buffer), value);
+    if (converted.ec == std::errc{})
+        output.write(buffer, converted.ptr - buffer);
+}
 
 auto write_dependency_graph(std::ostream& output, const compiler::ir::Project& project) -> void {
     const auto graph = compiler::build_dependency_graph(project);
@@ -477,7 +494,13 @@ auto write_model(std::ostream& output, const compiler::ir::Project& project,
                     output << ',';
                 }
                 const auto& point = part.vertices[vertex];
-                output << '[' << point.x << ',' << point.y << ',' << point.z << ']';
+                output << '[';
+                write_json_number(output, point.x);
+                output << ',';
+                write_json_number(output, point.y);
+                output << ',';
+                write_json_number(output, point.z);
+                output << ']';
             }
             output << "],\"triangles\":[";
             for (std::size_t face = 0; face < part.triangles.size(); ++face) {
@@ -485,7 +508,13 @@ auto write_model(std::ostream& output, const compiler::ir::Project& project,
                     output << ',';
                 }
                 const auto& triangle = part.triangles[face];
-                output << '[' << triangle[0] << ',' << triangle[1] << ',' << triangle[2] << ']';
+                output << '[';
+                write_json_number(output, triangle[0]);
+                output << ',';
+                write_json_number(output, triangle[1]);
+                output << ',';
+                write_json_number(output, triangle[2]);
+                output << ']';
             }
             output << "]}";
         }
