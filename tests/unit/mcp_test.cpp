@@ -164,6 +164,8 @@ auto main() -> int {
                                                 {"value", 14.0},
                                                 {"unit", "mm"}}}}}},
          {"expectedRevision", initial_revision}});
+    messages += tool_call(30, "icad.materials", {{"class", "metal"}});
+    messages += tool_call(31, "icad.material.inspect", {{"id", "TI6AL4V"}});
     messages += tool_call(15, "icad.unknown", {});
     messages += "{bad json\n";
 
@@ -181,7 +183,7 @@ auto main() -> int {
             return fail("MCP emitted invalid JSON");
         parsed_responses.push_back(std::move(*parsed.value));
     }
-    if (parsed_responses.size() != 30) {
+    if (parsed_responses.size() != 32) {
         return fail("MCP emitted an unexpected response count");
     }
     const auto serialized = output.str();
@@ -193,6 +195,9 @@ auto main() -> int {
         !serialized.contains("\"name\":\"icad.agent.create\"") ||
         !serialized.contains("\"name\":\"icad.evidence.inspect\"") ||
         !serialized.contains("\"name\":\"icad.compliance.inspect\"") ||
+        !serialized.contains("\"name\":\"icad.material.inspect\"") ||
+        !serialized.contains("\"schema\":\"icad.material.catalog.v1\"") ||
+        !serialized.contains("\"id\":\"ATI_TI_6AL_4V_GRADE5_BAR\"") ||
         !serialized.contains("\"schema\":\"icad.evidence.manifest.v1\"") ||
         !serialized.contains("\"schema\":\"icad.compliance.v1\"") ||
         !serialized.contains("\"name\":\"icad.topology\"") ||

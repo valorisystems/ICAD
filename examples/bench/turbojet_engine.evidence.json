@@ -5,8 +5,8 @@
   "lifecycleState": "DEVELOPMENT",
   "model": {
     "path": "turbojet_engine.icad",
-    "revision": "ea98f7f60891e282",
-    "sha256": "6df35f9c1614bf883e7268cc481337bbee846a12df4ad4547bb5435976b50649"
+    "revision": "448df2487788d3db",
+    "sha256": "ecd9cc86f13f35eccdb8fbbe9d49d04256b4de9c266e673fbb0ba7f9c113bc61"
   },
   "controlledInputs": [
     {

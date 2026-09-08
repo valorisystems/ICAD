@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://icad.dev/schemas/icad.bom.v2.schema.json",
+  "title": "ICAD calculated bilingual bill of materials",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "project", "languages", "documentTitle", "calculationBasis", "components", "fasteners", "connections", "weldConsumables", "procurementLimitations", "summary"],
+  "properties": {
+    "schema": { "const": "icad.bom.v2" },
+    "project": { "type": "string", "minLength": 1 },
+    "languages": { "const": ["en", "fr"] },
+    "documentTitle": { "$ref": "#/$defs/localized" },
+    "calculationBasis": {
+      "type": "object",
+      "required": ["componentQuantities", "fastenerQuantities", "weldConsumables", "status"],
+      "properties": { "status": { "$ref": "#/$defs/localized" } }
+    },
+    "components": { "type": "array", "items": { "$ref": "#/$defs/component" } },
+    "fasteners": { "type": "array", "items": { "$ref": "#/$defs/fastener" } },
+    "connections": { "type": "array", "items": { "$ref": "#/$defs/connection" } },
+    "weldConsumables": { "type": "array", "items": { "$ref": "#/$defs/weld" } },
+    "procurementLimitations": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/localized" } },
+    "summary": {
+      "type": "object",
+      "required": ["componentOccurrences", "componentLineItems", "partialCalculatedMassKg", "massLineItems", "massComplete", "connectionCount", "fastenerQuantity", "weldRodQuantity", "weldFillerMassKg", "weldPackageQuantity", "weldMassComplete", "connectionQuantitiesComplete", "procurementReady", "status"],
+      "properties": { "status": { "$ref": "#/$defs/localized" } }
+    }
+  },
+  "$defs": {
+    "localized": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "fr"],
+      "properties": { "en": { "type": "string" }, "fr": { "type": "string" } }
+    },
+    "component": {
+      "type": "object",
+      "required": ["item", "type", "description", "body", "definition", "occurrences", "material", "materialProfile", "quantity", "solidCount", "unitVolumeMm3", "totalVolumeMm3", "volumeMm3", "densityKgM3", "calculatedMassKg", "massCalculationMethod"],
+      "properties": {
+        "description": { "$ref": "#/$defs/localized" },
+        "materialProfile": { "type": "string" },
+        "occurrences": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "densityKgM3": { "type": ["number", "null"] },
+        "calculatedMassKg": { "type": ["number", "null"] },
+        "nominalSheetThicknessMm": { "type": "number", "exclusiveMinimum": 0 },
+        "massCalculationMethod": { "enum": ["supplier_mass_per_covered_area", "density_times_solid_volume", "unavailable"] },
+        "calculatedSheetAreaM2": { "type": "number", "minimum": 0 },
+        "supplierMassPerCoveredAreaKgM2": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "fastener": {
+      "type": "object",
+      "required": ["item", "type", "description", "standard", "model", "quantity", "quantitySource", "quantityReady", "procurementReady", "missingProcurementFields"],
+      "properties": {
+        "description": { "$ref": "#/$defs/localized" },
+        "nominalDiameterMm": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "lengthMm": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "propertyClass": { "type": ["string", "null"] },
+        "quantityReady": { "type": "boolean" },
+        "procurementReady": { "type": "boolean" },
+        "missingProcurementFields": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "connection": {
+      "type": "object",
+      "required": ["item", "name", "description", "method", "standard", "fastenerModel", "quantity", "quantityExplicit", "fit", "clearanceMm"],
+      "properties": { "description": { "$ref": "#/$defs/localized" } }
+    },
+    "weld": {
+      "type": "object",
+      "required": ["item", "type", "description", "connection", "process", "model", "weldSizeMm", "weldLengthMm", "jointQuantity", "depositionEfficiency", "depositedVolumeMm3", "requiredFillerVolumeMm3", "rodDiameterMm", "rodStockLengthMm", "calculatedRodQuantity", "fillerDensityKgM3", "requiredFillerMassKg", "supplierPackageMassKg", "calculatedPackageQuantity", "calculationModel"],
+      "properties": { "description": { "$ref": "#/$defs/localized" } }
+    }
+  }
+}

@@ -277,6 +277,10 @@ build/bin/icad interference-json examples/assembly_semantics.icad
 build/bin/icad validate examples/advanced.icad
 build/bin/icad manufacturing examples/advanced.icad
 build/bin/icad materials
+build/bin/icad materials-json --class metal
+build/bin/icad materials-json --class nickel_superalloy
+build/bin/icad material-json ATI_TI_6AL_4V_GRADE5_BAR
+build/bin/icad bom-json examples/bench/turbojet_engine.icad > turbojet_engine.bom.json
 build/bin/icad build examples/advanced.icad --output-dir build/examples
 build/bin/icad inspect-step build/examples/advanced.step
 build/bin/icad inspect-stl build/examples/advanced.stl
@@ -318,7 +322,9 @@ The deterministic tool catalog contains source-text tools:
 - `icad.agent.review`: compilation, constraints, manufacturing, topology,
   metrics, interference, and a compact agent-readable design map in one response;
 - `icad.language`: concise source-language and workflow guide;
-- `icad.materials`: embedded material and texture metadata;
+- `icad.materials`: PBR presets plus the versioned, supplier-sourced physical
+  material catalog, optionally filtered by class;
+- `icad.material.inspect`: one complete material profile by stable ID or alias;
 - `icad.compile`: compiler diagnostics from complete source text;
 - `icad.validate`: constraints and manufacturing validation;
 - `icad.measure`: area, volume, and bounds;

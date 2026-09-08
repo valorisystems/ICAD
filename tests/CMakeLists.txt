@@ -70,6 +70,7 @@ endif()
 icad_add_unit_test(intersection unit/intersection_test.cpp)
 icad_add_unit_test(topology unit/topology_test.cpp)
 icad_add_unit_test(scene unit/scene_test.cpp)
+icad_add_unit_test(materials unit/materials_test.cpp)
 icad_add_unit_test(live_viewer unit/live_viewer_test.cpp)
 icad_add_unit_test(profile unit/profile_test.cpp)
 icad_add_unit_test(constraints unit/constraints_test.cpp)
@@ -159,6 +160,17 @@ add_test(
 )
 set_tests_properties(integration.turbojet_baseline PROPERTIES
     LABELS "integration;evidence;turbojet;baseline")
+
+add_test(
+    NAME integration.hall_clinker_bom
+    COMMAND ${CMAKE_COMMAND}
+        -DICAD_EXECUTABLE=$<TARGET_FILE:icad>
+        -DICAD_SOURCE=${PROJECT_SOURCE_DIR}/examples/bench/hall_clinker/hall_clinker.icad
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/integration/hall_clinker_bom.cmake
+)
+set_tests_properties(integration.hall_clinker_bom PROPERTIES
+    LABELS "integration;hangar;bom;manufacturing;materials"
+    TIMEOUT 60)
 
 add_test(
     NAME integration.cli_check_advanced_sketch_constraints

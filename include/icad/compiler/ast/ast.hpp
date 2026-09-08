@@ -151,13 +151,28 @@ struct ConnectionDecl {
     std::string standard;
     std::string fastener;
     std::string fit;
+    std::string filler;
+    std::string weld_process;
     ValueDecl clearance;
+    ValueDecl weld_size;
+    ValueDecl weld_length;
+    ValueDecl filler_diameter;
+    ValueDecl stock_length;
+    std::size_t quantity{1};
+    double deposition_efficiency{};
+    bool quantity_explicit{};
+    bool has_weld_size{};
+    bool has_weld_length{};
+    bool has_filler_diameter{};
+    bool has_stock_length{};
+    bool has_deposition_efficiency{};
     bool automatic{};
     SourceLocation location;
 };
 
 struct MaterialDecl {
     std::string name;
+    std::string profile;
     std::string preset;
     std::array<double, 4> base_color{};
     double metallic{};

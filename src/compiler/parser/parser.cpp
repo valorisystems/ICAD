@@ -1711,7 +1711,9 @@ auto retain_legacy_value(const ast::ScalarExpression& expression, ast::QuantityL
             closed = true;
             break;
         }
-        if (entry == "PRESET" && line.size() == 2 && valid_identifier(line[1])) {
+        if (entry == "PROFILE" && line.size() == 2 && valid_identifier(line[1])) {
+            material.profile = line[1].lexeme;
+        } else if (entry == "PRESET" && line.size() == 2 && valid_identifier(line[1])) {
             material.preset = line[1].lexeme;
         } else if (entry == "BASE_COLOR" && line.size() == 5) {
             bool valid = true;
@@ -1744,7 +1746,7 @@ auto retain_legacy_value(const ast::ScalarExpression& expression, ast::QuantityL
             material.uv_mode = line[1].lexeme;
         } else {
             add_error(result, "ICAD-P0013",
-                      "MATERIAL accepts PRESET, BASE_COLOR, METALLIC, ROUGHNESS, "
+                      "MATERIAL accepts PROFILE, PRESET, BASE_COLOR, METALLIC, ROUGHNESS, "
                       "TEXTURE_SCALE, and UV_MODE",
                       line.front().location);
         }
@@ -2105,7 +2107,8 @@ auto parse(const std::vector<Token>& tokens) -> ParseResult {
                     ++cursor;
                     if (option == "AUTO") {
                         connection.automatic = true;
-                    } else if (option == "STANDARD" || option == "FASTENER" || option == "FIT") {
+                    } else if (option == "STANDARD" || option == "FASTENER" || option == "FIT" ||
+                               option == "FILLER" || option == "PROCESS") {
                         if (cursor >= line.size() || !valid_identifier(line[cursor])) {
                             add_error(result, "ICAD-P0031", option + " expects an identifier",
                                       line[cursor - 1].location);
@@ -2115,11 +2118,53 @@ auto parse(const std::vector<Token>& tokens) -> ParseResult {
                             connection.standard = line[cursor].lexeme;
                         else if (option == "FASTENER")
                             connection.fastener = line[cursor].lexeme;
-                        else
+                        else if (option == "FIT")
                             connection.fit = line[cursor].lexeme;
+                        else if (option == "FILLER")
+                            connection.filler = line[cursor].lexeme;
+                        else
+                            connection.weld_process = line[cursor].lexeme;
+                        ++cursor;
+                    } else if (option == "QUANTITY") {
+                        double quantity = 0.0;
+                        if (cursor >= line.size() || !parse_number(line[cursor], quantity) ||
+                            quantity < 1.0 || quantity > 1'000'000.0 ||
+                            std::floor(quantity) != quantity) {
+                            add_error(result, "ICAD-P0031", "QUANTITY expects a positive integer",
+                                      line[cursor - 1].location);
+                            break;
+                        }
+                        connection.quantity = static_cast<std::size_t>(quantity);
+                        connection.quantity_explicit = true;
+                        ++cursor;
+                    } else if (option == "DEPOSITION_EFFICIENCY") {
+                        if (cursor >= line.size() ||
+                            !parse_number(line[cursor], connection.deposition_efficiency)) {
+                            add_error(result, "ICAD-P0031",
+                                      "DEPOSITION_EFFICIENCY expects a number",
+                                      line[cursor - 1].location);
+                            break;
+                        }
+                        connection.has_deposition_efficiency = true;
                         ++cursor;
                     } else if (option == "CLEARANCE") {
                         connection.clearance = parse_value(line, cursor, result);
+                    } else if (option == "WELD_SIZE" || option == "WELD_LENGTH" ||
+                               option == "FILLER_DIAMETER" || option == "STOCK_LENGTH") {
+                        auto parsed = parse_value(line, cursor, result);
+                        if (option == "WELD_SIZE") {
+                            connection.weld_size = std::move(parsed);
+                            connection.has_weld_size = true;
+                        } else if (option == "WELD_LENGTH") {
+                            connection.weld_length = std::move(parsed);
+                            connection.has_weld_length = true;
+                        } else if (option == "FILLER_DIAMETER") {
+                            connection.filler_diameter = std::move(parsed);
+                            connection.has_filler_diameter = true;
+                        } else {
+                            connection.stock_length = std::move(parsed);
+                            connection.has_stock_length = true;
+                        }
                     } else {
                         add_error(result, "ICAD-P0031", "unknown CONNECT option '" + option + "'",
                                   line[cursor - 1].location);

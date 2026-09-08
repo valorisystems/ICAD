@@ -328,14 +328,57 @@ auto add_triangle(Part& part, std::size_t first, std::size_t second, std::size_t
 [[nodiscard]] auto make_sweep(const compiler::ir::Project& project,
                               const compiler::ir::Feature& feature,
                               const compiler::ir::Profile& profile) -> Part {
+    const auto subtract_points = [](const Point3& first, const Point3& second) {
+        return Vector3{first.x - second.x, first.y - second.y, first.z - second.z};
+    };
+    const auto vector_dot = [](const Vector3& first, const Vector3& second) {
+        return first.x * second.x + first.y * second.y + first.z * second.z;
+    };
+    const auto vector_cross = [](const Vector3& first, const Vector3& second) {
+        return Vector3{first.y * second.z - first.z * second.y,
+                       first.z * second.x - first.x * second.z,
+                       first.x * second.y - first.y * second.x};
+    };
+    const auto normalize = [&vector_dot](const Vector3& vector) {
+        const double length = std::sqrt(vector_dot(vector, vector));
+        return Vector3{vector.x / length, vector.y / length, vector.z / length};
+    };
     std::vector<std::vector<Point3>> sections;
     sections.reserve(feature.path_points.size());
-    for (const auto& name : feature.path_points) {
-        const Point3 origin = spatial_point(project, name);
+    std::vector<Point3> path;
+    path.reserve(feature.path_points.size());
+    for (const auto& name : feature.path_points)
+        path.push_back(spatial_point(project, name));
+
+    Vector3 previous_u{};
+    for (std::size_t path_index = 0; path_index < path.size(); ++path_index) {
+        const Point3 origin = path[path_index];
+        const Point3 tangent_start = path_index == 0 ? path[path_index] : path[path_index - 1];
+        const Point3 tangent_end = path_index + 1 == path.size() ? path[path_index]
+                                                                  : path[path_index + 1];
+        const Vector3 tangent = normalize(subtract_points(tangent_end, tangent_start));
+
+        // A sweep profile is defined in its local (u, v) section plane.  Construct
+        // that plane perpendicular to the path instead of translating an XY
+        // profile unchanged: the latter creates zero-area faces for horizontal
+        // and inclined structural members.  The vertical-path special case keeps
+        // the historical XY orientation, while the sign check prevents an
+        // avoidable 180-degree section flip along a polyline.
+        const Vector3 reference = std::abs(tangent.z) > 0.9 ? Vector3{0.0, 1.0, 0.0}
+                                                            : Vector3{0.0, 0.0, 1.0};
+        Vector3 u = normalize(vector_cross(reference, tangent));
+        if (path_index != 0 && vector_dot(u, previous_u) < 0.0)
+            u = {-u.x, -u.y, -u.z};
+        const Vector3 v = normalize(vector_cross(tangent, u));
+        previous_u = u;
+
         std::vector<Point3> section;
         section.reserve(profile.points.size());
-        for (const auto& point : profile.points)
-            section.push_back({origin.x + point.x_mm, origin.y + point.y_mm, origin.z});
+        for (const auto& point : profile.points) {
+            section.push_back({origin.x + point.x_mm * u.x + point.y_mm * v.x,
+                               origin.y + point.x_mm * u.y + point.y_mm * v.y,
+                               origin.z + point.x_mm * u.z + point.y_mm * v.z});
+        }
         sections.push_back(std::move(section));
     }
     return sectioned_solid(sections, profile.points);

@@ -441,13 +441,9 @@ limits, clearance, interference, and transformed bounds.
 Physical material and visual appearance are independent:
 
 ```icad
-MATERIAL aluminum_6061
-  STANDARD ASTM_B209
-  DENSITY 2.70 g_cm3
-  ELASTIC_MODULUS 68.9 GPa
-  POISSON_RATIO 0.33
-  YIELD_STRENGTH 276 MPa
-  ULTIMATE_STRENGTH 310 MPa
+MATERIAL compressor_blade
+  PROFILE ATI_TI_6AL_4V_GRADE5_BAR
+  PRESET TITANIUM
 END
 
 APPEARANCE anodized_blue
@@ -459,6 +455,12 @@ APPEARANCE anodized_blue
 END
 ```
 
+`PROFILE` is the implemented v1 physical-material contract. It resolves a
+versioned supplier/product-form record from `icad.material.catalog.v1` with
+composition limit semantics, conditioned properties, product forms, source
+URLs, document revisions, and limitations. `PRESET` remains appearance-only
+and is optional when the profile supplies a default appearance.
+
 The standard library should embed deterministic procedural presets for common
 industrial materials: concrete, structural steel, stainless steel, tool
 steel, cast iron, aluminum, brass, copper, titanium, asphalt, glass,
@@ -469,6 +471,9 @@ External textures are project-relative, sandboxed, decoded with bounded memory,
 and packaged into exports. Texture files cannot change density, strength, or
 manufacturing rules. Missing appearance data never blocks engineering export;
 missing required physical material data blocks analyses that depend on it.
+The catalog is explicitly curated rather than exhaustive: proprietary or
+unpublished composition is recorded as undisclosed and is never reconstructed
+from generic handbook values.
 
 ## 11. Manufacturing and validation
 

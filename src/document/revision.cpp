@@ -139,14 +139,24 @@ auto fingerprint(const compiler::ir::Project& project) -> std::uint64_t {
         hash.add(connection.standard);
         hash.add(connection.fastener);
         hash.add(connection.fit);
+        hash.add(connection.filler);
+        hash.add(connection.weld_process);
         hash.add(connection.clearance_mm);
+        hash.add(connection.weld_size_mm);
+        hash.add(connection.weld_length_mm);
+        hash.add(connection.filler_diameter_mm);
+        hash.add(connection.stock_length_mm);
+        hash.add(connection.deposition_efficiency);
         hash.add(connection.interface_gap_mm);
         hash.add(connection.axis_alignment);
+        hash.add(static_cast<double>(connection.quantity));
+        hash.add(static_cast<double>(connection.quantity_explicit));
         hash.add(static_cast<double>(connection.automatic));
         hash.add(static_cast<double>(connection.aligned));
     }
     for (const auto& material : project.materials) {
         hash.add(material.name);
+        hash.add(material.profile);
         hash.add(material.preset);
         for (const auto channel : material.base_color)
             hash.add(channel);

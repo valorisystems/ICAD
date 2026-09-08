@@ -17,6 +17,7 @@ add_library(icad_compiler
     compiler/types/types.cpp
     compiler/units/units.cpp
     materials/library.cpp
+    materials/catalog.cpp
     cad/model.cpp
     cad/boolean.cpp
     cad/topology.cpp

@@ -2,8 +2,8 @@ if(NOT DEFINED ICAD_SOURCE OR NOT DEFINED BASELINE_PATCH OR NOT DEFINED OUTPUT_R
     message(FATAL_ERROR "ICAD_SOURCE, BASELINE_PATCH, and OUTPUT_ROOT are required")
 endif()
 
-set(anchor_sha "6df35f9c1614bf883e7268cc481337bbee846a12df4ad4547bb5435976b50649")
-set(patch_sha "579f9da26620cdf8c74129650b4ee8bc1ae03bf49f4e77ec666f1e1b41ae0b02")
+set(anchor_sha "ecd9cc86f13f35eccdb8fbbe9d49d04256b4de9c266e673fbb0ba7f9c113bc61")
+set(patch_sha "b1f10b2fcc313c5b1f91801f0f113378d25644866a0a88651ccfd7da71581adf")
 set(r3_sha "d4050632062a7a3a9e1ff019c15d24aca59bf05adb77ba2df2990645a62dc2da")
 
 file(SHA256 "${ICAD_SOURCE}" actual_anchor_sha)
@@ -19,6 +19,24 @@ string(REPLACE "${development_header}" "${r3_header}" reconstructed "${developme
 string(REPLACE
     "# Editable system parameters and derived design handles. TGD-REQ-ENV-001 fixes\n# the preferred candidate envelope. Running clearances remain Gate-1 open."
     "# Editable system parameters and derived design handles."
+    reconstructed "${reconstructed}")
+string(REGEX REPLACE "(FASTENER M[68]) QUANTITY [0-9]+" "\\1" reconstructed "${reconstructed}")
+string(REPLACE "REQUIRES CAPABILITY MATERIAL_PROFILE_V1\n" "" reconstructed "${reconstructed}")
+string(REPLACE "REQUIRES CAPABILITY CALCULATED_BILINGUAL_BOM_V1\n" "" reconstructed "${reconstructed}")
+foreach(profile_line IN ITEMS
+        "PROFILE KAISER_ALUMINUM_6061_T6_T651_SHEET_PLATE\n"
+        "PROFILE ATI_TI_6AL_4V_GRADE5_BAR\n"
+        "PROFILE SPECIAL_METALS_INCONEL_718\n"
+        "PROFILE OUTOKUMPU_PRODEC_316L_4404\n")
+    string(REPLACE "${profile_line}" "" reconstructed "${reconstructed}")
+endforeach()
+string(REPLACE
+    "MATERIAL bearing_steel\nPROFILE OVAKO_100CR6_803D\nPRESET CHROME\nEND\n"
+    "MATERIAL bearing_steel CHROME\n"
+    reconstructed "${reconstructed}")
+string(REPLACE
+    "MATERIAL bracket_steel\nPROFILE SSAB_DOMEX_355MC\nPRESET STRUCTURAL_STEEL\nEND\n"
+    "MATERIAL bracket_steel STRUCTURAL_STEEL\n"
     reconstructed "${reconstructed}")
 file(MAKE_DIRECTORY "${OUTPUT_ROOT}")
 file(WRITE "${OUTPUT_ROOT}/turbojet_engine_r3.icad" "${reconstructed}")

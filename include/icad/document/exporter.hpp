@@ -12,6 +12,7 @@ struct ExportResult {
     std::string message;
 };
 
+[[nodiscard]] auto bom_json(const compiler::ir::Project& project) -> std::string;
 [[nodiscard]] auto write_bom(const compiler::ir::Project& project,
                              const std::filesystem::path& output) -> ExportResult;
 

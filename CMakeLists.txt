@@ -80,6 +80,8 @@ install(FILES
         docs/schemas/icad.analysis.result.v1.schema.json
         docs/schemas/icad.evidence.manifest.v1.schema.json
         docs/schemas/icad.compliance.v1.schema.json
+        docs/schemas/icad.material.catalog.v1.schema.json
+        docs/schemas/icad.bom.v2.schema.json
         DESTINATION share/icad/schemas)
 install(FILES
         examples/bench/turbojet_engine.icad
@@ -92,3 +94,7 @@ install(DIRECTORY
         examples/bench/development
         DESTINATION share/icad/examples/bench
         FILES_MATCHING PATTERN "*.md" PATTERN "*.json" PATTERN "*.patch")
+install(DIRECTORY
+        examples/bench/hall_clinker
+        DESTINATION share/icad/examples/bench
+        FILES_MATCHING PATTERN "*.icad" PATTERN "*.md")

@@ -9,6 +9,7 @@
 #include "icad/compiler/lexer/token.hpp"
 #include "icad/constraints/validator.hpp"
 #include "icad/drawings/exporter.hpp"
+#include "icad/document/exporter.hpp"
 #include "icad/evidence/compliance.hpp"
 #include "icad/exchange/exporter.hpp"
 #include "icad/lsp/server.hpp"
@@ -66,6 +67,9 @@ auto print_usage(std::ostream& output) -> void {
               "       icad build <source.icad> [--output-dir <directory>]\n"
               "       icad language\n"
               "       icad materials\n"
+              "       icad materials-json [--class <class>]\n"
+              "       icad material-json <profile-id-or-alias>\n"
+              "       icad bom-json <source.icad>\n"
               "       icad lsp\n"
               "       icad mcp [--workspace <directory>]\n"
               "       icad --version\n";
@@ -264,6 +268,26 @@ auto main(int argc, char** argv) -> int {
                       << " roughness=" << material.roughness << " texture=" << material.texture
                       << '\n';
         }
+        return 0;
+    }
+    if ((argc == 2 || argc == 4) && std::string_view{argv[1]} == "materials-json") {
+        if (argc == 4 && std::string_view{argv[2]} != "--class") {
+            print_usage(std::cerr);
+            return 2;
+        }
+        const auto material_class = argc == 4
+                                        ? std::optional<std::string_view>{argv[3]}
+                                        : std::optional<std::string_view>{};
+        std::cout << icad::materials::catalog_json(material_class) << '\n';
+        return 0;
+    }
+    if (argc == 3 && std::string_view{argv[1]} == "material-json") {
+        if (icad::materials::find_profile(argv[2]) == nullptr) {
+            std::cerr << "icad: unknown engineering material profile: " << argv[2] << '\n';
+            return 1;
+        }
+        std::cout << icad::materials::catalog_json(std::nullopt, std::string_view{argv[2]})
+                  << '\n';
         return 0;
     }
     if (argc == 2 && std::string_view{argv[1]} == "language") {
@@ -481,6 +505,14 @@ auto main(int argc, char** argv) -> int {
     }
     if (command == "check") {
         std::cout << source_path.string() << ": compile check passed\n";
+        return 0;
+    }
+    if (command == "bom-json") {
+        if (argc != 3) {
+            print_usage(std::cerr);
+            return 2;
+        }
+        std::cout << icad::document::bom_json(*result.ir_project) << '\n';
         return 0;
     }
     if (command == "evidence-json" || command == "compliance-json" ||

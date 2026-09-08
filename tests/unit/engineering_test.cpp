@@ -101,6 +101,12 @@ auto main() -> int {
         return fail("engineering artifact export failed");
     }
     if (!contents(bom_path).contains("\"volumeMm3\":") ||
+        !contents(bom_path).contains("\"schema\":\"icad.bom.v2\"") ||
+        !contents(bom_path).contains("\"languages\":[\"en\",\"fr\"]") ||
+        !contents(bom_path).contains("\"fr\":\"Nomenclature calculée\"") ||
+        !contents(bom_path).contains("\"fr\":\"Nomenclature calculée générée\"") ||
+        !contents(bom_path).contains("\"occurrences\":[") ||
+        !contents(bom_path).contains("\"componentLineItems\":") ||
         !contents(report_path).contains("\"passed\":true") ||
         !contents(report_path).contains("\"checkedRules\":8") ||
         !contents(drawing_path).contains("<svg") ||
@@ -122,6 +128,34 @@ auto main() -> int {
         !contents(dxf_path).contains("TITLE_BLOCK") ||
         !contents(dxf_path).contains("GENERAL TOLERANCE")) {
         return fail("engineering artifacts do not contain required data");
+    }
+
+    const auto welded = icad::compiler::compile(
+        "REQUIRES CAPABILITY CALCULATED_BILINGUAL_BOM_V1\nPROJECT welded\nUNITS mm\n"
+        "POINT3 seam 10 mm 5 mm 5 mm\nVECTOR xp 1 0 0\nVECTOR xn -1 0 0\n"
+        "MATERIAL steel STRUCTURAL_STEEL\n"
+        "BODY first\nMATERIAL steel\nFEATURE stock\nTYPE BOX\nWIDTH 10 mm\nDEPTH 10 mm\n"
+        "HEIGHT 10 mm\nEND\nEND\n"
+        "BODY second\nMATERIAL steel\nFEATURE stock\nTYPE BOX\nWIDTH 10 mm\nDEPTH 10 mm\n"
+        "HEIGHT 10 mm\nORIGIN_X 10 mm\nEND\nEND\n"
+        "INTERFACE seam_a BODY first AT seam AXIS xp TYPE WELD_SEAM SIZE 3 mm\n"
+        "INTERFACE seam_b BODY second AT seam AXIS xn TYPE WELD_SEAM SIZE 3 mm\n"
+        "CONNECT welded_joint seam_a seam_b METHOD WELDED STANDARD ISO_2553 FILLER LINCOLN_LNT_26_ER70S_6_2_4X1000 "
+        "PROCESS GTAW QUANTITY 2 WELD_SIZE 3 mm WELD_LENGTH 1000 mm "
+        "FILLER_DIAMETER 1.6 mm STOCK_LENGTH 1000 mm DEPOSITION_EFFICIENCY 0.8 AUTO\n");
+    if (!welded.ok())
+        return fail("weld resource fixture did not compile");
+    const auto weld_bom_path = output_root / "welded.bom.json";
+    if (!icad::document::write_bom(*welded.ir_project, weld_bom_path).success)
+        return fail("weld resource BOM export failed");
+    const auto weld_bom = contents(weld_bom_path);
+    if (!weld_bom.contains("\"fr\":\"Baguette de soudage\"") ||
+        !weld_bom.contains("\"model\":\"LINCOLN_LNT_26_ER70S_6_2_4X1000\"") ||
+        !weld_bom.contains("\"calculatedRodQuantity\":6") ||
+        !weld_bom.contains("\"supplierPackageMassKg\":5") ||
+        !weld_bom.contains("\"calculatedPackageQuantity\":1") ||
+        !weld_bom.contains("\"quantityExplicit\":true")) {
+        return fail("calculated bilingual weld and fastener BOM data is incomplete");
     }
     return 0;
 }

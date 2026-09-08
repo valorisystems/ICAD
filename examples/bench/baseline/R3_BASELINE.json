@@ -4,9 +4,9 @@
   "frozenAt": "2026-08-31",
   "source": {
     "developmentAnchorPath": "../turbojet_engine.icad",
-    "developmentAnchorSha256": "6df35f9c1614bf883e7268cc481337bbee846a12df4ad4547bb5435976b50649",
+    "developmentAnchorSha256": "ecd9cc86f13f35eccdb8fbbe9d49d04256b4de9c266e673fbb0ba7f9c113bc61",
     "reconstructionPatch": "R3_SOURCE_FROM_DEVELOPMENT.patch",
-    "reconstructionPatchSha256": "579f9da26620cdf8c74129650b4ee8bc1ae03bf49f4e77ec666f1e1b41ae0b02",
+    "reconstructionPatchSha256": "b1f10b2fcc313c5b1f91801f0f113378d25644866a0a88651ccfd7da71581adf",
     "revision": "84591a6e080feec9",
     "sha256": "d4050632062a7a3a9e1ff019c15d24aca59bf05adb77ba2df2990645a62dc2da"
   },

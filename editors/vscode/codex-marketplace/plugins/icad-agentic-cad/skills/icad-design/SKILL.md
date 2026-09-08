@@ -82,6 +82,8 @@ icad inspect-json model.icad
 icad visual-json model.icad
 icad compare-json first.icad second.icad
 icad topology-json model.icad
+icad bom-json model.icad
+icad materials-json
 icad build model.icad --output-dir build/icad/model
 ```
 
@@ -89,6 +91,16 @@ Read back the generated STEP and STL with `icad inspect-step` and
 `icad inspect-stl`. A complete build includes STEP assembly, STL, OBJ, glTF,
 GLB, 3MF, HTML viewer, scene data, BOM, manufacturing report, SVG, DXF, and
 topology JSON.
+
+For procurement-oriented models, inspect the `icad.bom.v2` output rather than
+counting visible solids. Require English and French descriptions, grouped
+definition quantities, occurrence identities, calculated mass and its method,
+explicit connection quantities, parsed fastener diameter/length/property class,
+and weld filler mass/package quantities. `procurementReady:false` is a valid and
+necessary result whenever supplier profiles, bolt stack data, coatings, nuts,
+washers, sheet fixings, laps, flashings, openings, or other ordered details are
+not substantiated. Never invent a missing procurement value merely to clear the
+gate. Query `icad material-json PROFILE_ID` and retain every supplier qualifier.
 
 ## Engineering evidence and controlled release states
 

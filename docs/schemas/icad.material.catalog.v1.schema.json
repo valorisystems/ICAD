@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://icad.dev/schemas/icad.material.catalog.v1.schema.json",
+  "title": "ICAD source-traceable engineering material catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "catalogRevision", "coverage", "classCount", "subclassCount", "profileCount", "classes", "subclasses", "profiles"],
+  "properties": {
+    "schema": { "const": "icad.material.catalog.v1" },
+    "catalogRevision": { "type": "string", "minLength": 1 },
+    "coverage": { "const": "curated_supplier_profiles_not_exhaustive" },
+    "classCount": { "type": "integer", "minimum": 0 },
+    "subclassCount": { "type": "integer", "minimum": 0 },
+    "profileCount": { "type": "integer", "minimum": 0 },
+    "classes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "subclasses": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "profiles": { "type": "array", "items": { "$ref": "#/$defs/profile" } }
+  },
+  "$defs": {
+    "numericValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "typical", "maximum", "unit", "qualifier"],
+      "properties": {
+        "minimum": { "type": ["number", "null"] },
+        "typical": { "type": ["number", "null"] },
+        "maximum": { "type": ["number", "null"] },
+        "unit": { "type": "string", "minLength": 1 },
+        "qualifier": { "type": "string", "minLength": 1 }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "displayName", "class", "subclass", "grade", "condition", "aliases", "appearancePreset", "compositionDisclosure", "composition", "properties", "productForms", "sources", "limitations"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+        "displayName": { "type": "string", "minLength": 1 },
+        "class": { "type": "string", "minLength": 1 },
+        "subclass": { "type": "string", "minLength": 1 },
+        "grade": { "type": "string", "minLength": 1 },
+        "condition": { "type": "string", "minLength": 1 },
+        "aliases": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "appearancePreset": { "type": "string", "minLength": 1 },
+        "compositionDisclosure": { "enum": ["fully_disclosed", "typical_only", "partially_disclosed", "minimum_purity_only", "proprietary_formulation_not_disclosed"] },
+        "composition": { "type": "array", "items": { "$ref": "#/$defs/composition" } },
+        "properties": { "type": "array", "items": { "$ref": "#/$defs/property" } },
+        "productForms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/productForm" } },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } },
+        "limitations": { "type": "string", "minLength": 1 }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constituent", "massPercent", "balance", "note"],
+      "properties": {
+        "constituent": { "type": "string", "minLength": 1 },
+        "massPercent": { "$ref": "#/$defs/numericValue" },
+        "balance": { "type": "boolean" },
+        "note": { "type": "string" }
+      }
+    },
+    "property": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value", "temperatureC", "condition", "testMethod"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "value": { "$ref": "#/$defs/numericValue" },
+        "temperatureC": { "type": ["number", "null"] },
+        "condition": { "type": "string" },
+        "testMethod": { "type": "string" }
+      }
+    },
+    "productForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["form", "condition", "specification", "sizeScope", "note"],
+      "properties": {
+        "form": { "type": "string", "minLength": 1 },
+        "condition": { "type": "string" },
+        "specification": { "type": "string" },
+        "sizeScope": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publisher", "title", "documentId", "revision", "url", "accessedOn", "location", "sourceType"],
+      "properties": {
+        "publisher": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "documentId": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "accessedOn": { "type": "string", "format": "date" },
+        "location": { "type": "string", "minLength": 1 },
+        "sourceType": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

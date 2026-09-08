@@ -803,17 +803,33 @@ auto analyze(const ast::Program& program) -> SemanticResult {
     std::unordered_set<std::string> material_names;
     for (const auto& material : program.materials) {
         material_names.insert(material.name);
-        if (material.preset.empty()) {
-            add_error(result, "ICAD-S0011", "material block requires PRESET", material.location);
-            continue;
-        }
-        const auto preset = materials::find(material.preset);
-        if (!preset) {
-            add_error(result, "ICAD-S0011", "unknown predefined material '" + material.preset + "'",
+        const auto* physical_profile = material.profile.empty()
+                                           ? nullptr
+                                           : materials::find_profile(material.profile);
+        if (!material.profile.empty() && physical_profile == nullptr) {
+            add_error(result, "ICAD-S0037",
+                      "unknown engineering material profile '" + material.profile + "'",
                       material.location);
             continue;
         }
-        ir::Material lowered_material{material.name, material.preset, preset->base_color,
+        const std::string resolved_preset = material.preset.empty() && physical_profile != nullptr
+                                                ? physical_profile->appearance_preset
+                                                : material.preset;
+        if (resolved_preset.empty()) {
+            add_error(result, "ICAD-S0011", "material block requires PROFILE or PRESET",
+                      material.location);
+            continue;
+        }
+        const auto preset = materials::find(resolved_preset);
+        if (!preset) {
+            add_error(result, "ICAD-S0011", "unknown predefined material '" + resolved_preset + "'",
+                      material.location);
+            continue;
+        }
+        ir::Material lowered_material{material.name,
+                                      physical_profile == nullptr ? std::string{}
+                                                                  : physical_profile->id,
+                                      resolved_preset, preset->base_color,
                                       preset->metallic, preset->roughness,
                                       std::string{preset->texture}, preset->texture_seed};
         if (material.has_base_color) {
@@ -2034,6 +2050,17 @@ auto analyze(const ast::Program& program) -> SemanticResult {
             add_error(result, "ICAD-S0042", connection.method + " CONNECT requires FIT",
                       connection.location);
         }
+        const bool welded = connection.method == "WELDED" || connection.method == "BRAZED";
+        if (welded && (connection.filler.empty() || connection.weld_process.empty() ||
+                       !connection.has_weld_size || !connection.has_weld_length ||
+                       !connection.has_filler_diameter || !connection.has_stock_length ||
+                       !connection.has_deposition_efficiency)) {
+            add_error(result, "ICAD-S0042",
+                      connection.method +
+                          " CONNECT requires FILLER, PROCESS, WELD_SIZE, WELD_LENGTH, "
+                          "FILLER_DIAMETER, STOCK_LENGTH, and DEPOSITION_EFFICIENCY",
+                      connection.location);
+        }
 
         const bool has_clearance = !connection.clearance.expression.empty() ||
                                    !connection.clearance.parameter_reference.empty() ||
@@ -2045,6 +2072,32 @@ auto analyze(const ast::Program& program) -> SemanticResult {
                                      : lowered.tolerance.linear_mm;
         if (clearance < 0.0) {
             add_error(result, "ICAD-S0042", "CONNECT CLEARANCE cannot be negative",
+                      connection.location);
+        }
+        const auto lower_connection_length = [&](const ast::ValueDecl& declared, bool present,
+                                                 std::string_view label) {
+            if (!present)
+                return 0.0;
+            const double lowered_value =
+                lower_value(declared, units::Dimension::length, parameter_values, result).value;
+            if (lowered_value <= 0.0)
+                add_error(result, "ICAD-S0042", std::string{label} + " must be greater than zero",
+                          connection.location);
+            return lowered_value;
+        };
+        const double weld_size =
+            lower_connection_length(connection.weld_size, connection.has_weld_size, "WELD_SIZE");
+        const double weld_length = lower_connection_length(connection.weld_length,
+                                                            connection.has_weld_length,
+                                                            "WELD_LENGTH");
+        const double filler_diameter = lower_connection_length(
+            connection.filler_diameter, connection.has_filler_diameter, "FILLER_DIAMETER");
+        const double stock_length = lower_connection_length(connection.stock_length,
+                                                             connection.has_stock_length,
+                                                             "STOCK_LENGTH");
+        if (connection.has_deposition_efficiency &&
+            (connection.deposition_efficiency <= 0.0 || connection.deposition_efficiency > 1.0)) {
+            add_error(result, "ICAD-S0042", "DEPOSITION_EFFICIENCY must be within (0, 1]",
                       connection.location);
         }
         double gap = 0.0;
@@ -2070,7 +2123,9 @@ auto analyze(const ast::Program& program) -> SemanticResult {
         lowered.connections.push_back(ir::AssemblyConnection{
             connection.name, connection.first_interface, connection.second_interface,
             connection.method, connection.standard, connection.fastener, connection.fit,
-            clearance, gap, alignment, connection.automatic, aligned});
+            connection.filler, connection.weld_process, clearance, weld_size, weld_length,
+            filler_diameter, stock_length, connection.deposition_efficiency, gap, alignment,
+            connection.quantity, connection.quantity_explicit, connection.automatic, aligned});
     }
 
     for (const auto& constraint : program.constraints) {

@@ -12,13 +12,98 @@
  REQUIRES ICAD 1.0
  REQUIRES CAPABILITY PARAMETER_EXPRESSIONS_V1
  REQUIRES CAPABILITY QUALIFIED_VALUE_REFERENCES_V1
+@@ -15,8 +11,6 @@
+ REQUIRES CAPABILITY ASSEMBLY_OCCURRENCES
+ REQUIRES CAPABILITY MATES_AND_JOINTS
+ REQUIRES CAPABILITY MANUFACTURING_CONNECTIONS_V1
+-REQUIRES CAPABILITY MATERIAL_PROFILE_V1
+-REQUIRES CAPABILITY CALCULATED_BILINGUAL_BOM_V1
+ REQUIRES CAPABILITY MAGNETIC_INTERFACE_SNAP_V1
+ REQUIRES CAPABILITY SCENES
+ REQUIRES CAPABILITY VISUAL_JSON_V1
 @@ -22,9 +18,8 @@
  UNITS mm
  TOLERANCE LINEAR 0.1 mm ANGULAR 0.25 deg
- 
+
 -# Editable system parameters and derived design handles. TGD-REQ-ENV-001 fixes
 -# the preferred candidate envelope. Running clearances remain Gate-1 open.
 +# Editable system parameters and derived design handles.
  PARAMETER engine_length 1000 mm
  PARAMETER max_radius 200 mm
  PARAMETER shaft_radius 20 mm
+@@ -82,11 +76,9 @@
+
+ # Manufacturing materials. Colors distinguish modules; geometry carries function.
+ MATERIAL casing_alloy
+-PROFILE KAISER_ALUMINUM_6061_T6_T651_SHEET_PLATE
+ PRESET ALUMINUM
+ BASE_COLOR 0.42 0.46 0.5 1
+ METALLIC 0.9
+@@ -94,7 +86,6 @@
+ UV_MODE CYLINDRICAL
+ END
+ MATERIAL titanium_rotor
+-PROFILE ATI_TI_6AL_4V_GRADE5_BAR
+ PRESET TITANIUM
+ BASE_COLOR 0.62 0.66 0.71 1
+ METALLIC 0.95
+@@ -102,7 +93,6 @@
+ UV_MODE CYLINDRICAL
+ END
+ MATERIAL hot_nickel
+-PROFILE SPECIAL_METALS_INCONEL_718
+ PRESET CHROME
+ BASE_COLOR 0.48 0.32 0.2 1
+ METALLIC 0.96
+@@ -110,7 +100,6 @@
+ UV_MODE CYLINDRICAL
+ END
+ MATERIAL liner_stainless
+-PROFILE OUTOKUMPU_PRODEC_316L_4404
+ PRESET STRUCTURAL_STEEL
+ BASE_COLOR 0.55 0.46 0.32 1
+ METALLIC 0.9
+@@ -118,14 +107,8 @@
+ TEXTURE_SCALE 18 mm
+ UV_MODE CYLINDRICAL
+ END
+-MATERIAL bearing_steel
+-PROFILE OVAKO_100CR6_803D
+-PRESET CHROME
+-END
++MATERIAL bearing_steel CHROME
+ MATERIAL fastener_steel STRUCTURAL_STEEL
+-MATERIAL bracket_steel
+-PROFILE SSAB_DOMEX_355MC
+-PRESET STRUCTURAL_STEEL
+-END
++MATERIAL bracket_steel STRUCTURAL_STEEL
+
+ # Closed manufacturing profiles for lofted compressor/stator/turbine airfoils.
+@@ -10078,17 +10073,17 @@
+ INTERFACE compressor_mount_face BODY structure_compressor_casing AT mount_front_joint AXIS vertical_axis_reverse TYPE MOUNT SIZE 80 mm
+ INTERFACE front_bracket_face BODY structure_mount_front AT mount_front_joint AXIS vertical_axis TYPE FLANGE SIZE 80 mm
+ INTERFACE combustor_mount_face BODY structure_combustor_mount_pad AT mount_rear_joint AXIS vertical_axis_reverse TYPE MOUNT SIZE 80 mm
+ INTERFACE rear_bracket_face BODY structure_mount_rear AT mount_rear_joint AXIS vertical_axis TYPE FLANGE SIZE 80 mm
+-CONNECT front_mount front_flange_side inlet_casing_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 8 CLEARANCE 0.2 mm AUTO
+-CONNECT compressor_front_mount inlet_rear_side compressor_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 12 CLEARANCE 0.2 mm AUTO
+-CONNECT combustor_mount compressor_rear_side combustor_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 12 CLEARANCE 0.2 mm AUTO
+-CONNECT turbine_mount combustor_rear_side turbine_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 12 CLEARANCE 0.2 mm AUTO
+-CONNECT exhaust_mount turbine_rear_side exhaust_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 10 CLEARANCE 0.2 mm AUTO
+-CONNECT exit_mount exhaust_rear_side exit_flange_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 8 CLEARANCE 0.2 mm AUTO
++CONNECT front_mount front_flange_side inlet_casing_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT compressor_front_mount inlet_rear_side compressor_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT combustor_mount compressor_rear_side combustor_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT turbine_mount combustor_rear_side turbine_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT exhaust_mount turbine_rear_side exhaust_front_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT exit_mount exhaust_rear_side exit_flange_side METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
+ CONNECT front_bearing_fit shaft_front_journal front_bearing_bore METHOD BEARING STANDARD ISO_492 FIT H7_g6 CLEARANCE 0.05 mm AUTO
+ CONNECT rear_bearing_fit shaft_rear_journal rear_bearing_bore METHOD BEARING STANDARD ISO_492 FIT H7_g6 CLEARANCE 0.05 mm AUTO
+-CONNECT inspection_cover_mount inspection_boss_mount inspection_cover_flange METHOD BOLTED STANDARD ISO_4017 FASTENER M6 QUANTITY 4 CLEARANCE 0.2 mm AUTO
+-CONNECT front_engine_mount compressor_mount_face front_bracket_face METHOD BOLTED STANDARD ISO_4017 FASTENER M8 QUANTITY 4 CLEARANCE 0.2 mm AUTO
+-CONNECT rear_engine_mount combustor_mount_face rear_bracket_face METHOD BOLTED STANDARD ISO_4017 FASTENER M8 QUANTITY 4 CLEARANCE 0.2 mm AUTO
++CONNECT inspection_cover_mount inspection_boss_mount inspection_cover_flange METHOD BOLTED STANDARD ISO_4017 FASTENER M6 CLEARANCE 0.2 mm AUTO
++CONNECT front_engine_mount compressor_mount_face front_bracket_face METHOD BOLTED STANDARD ISO_4017 FASTENER M8 CLEARANCE 0.2 mm AUTO
++CONNECT rear_engine_mount combustor_mount_face rear_bracket_face METHOD BOLTED STANDARD ISO_4017 FASTENER M8 CLEARANCE 0.2 mm AUTO
+
+ # Proper parent-child mechanism graph. Only the continuous shaft has a DOF.

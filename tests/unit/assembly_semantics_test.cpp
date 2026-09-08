@@ -102,7 +102,7 @@ auto main() -> int {
     std::ifstream bom{bom_path, std::ios::binary};
     const std::string bom_json{std::istreambuf_iterator<char>{bom},
                                std::istreambuf_iterator<char>{}};
-    if (!contains(bom_json, "\"body\":\"upper_link\"") ||
+    if (!contains(bom_json, "\"occurrences\":[\"link_definition\",\"upper_link\"]") ||
         !contains(bom_json, "\"definition\":\"link_definition\"")) {
         std::cerr << "assembly BOM omitted the instance occurrence\n";
         return 1;

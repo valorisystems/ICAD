@@ -263,25 +263,45 @@ auto write_svg(const compiler::ir::Project& project, const cad::ProjectAnalysis&
     const std::array overview_extent{overview_bounds.maximum[0] - overview_bounds.minimum[0],
                                      overview_bounds.maximum[1] - overview_bounds.minimum[1],
                                      overview_bounds.maximum[2] - overview_bounds.minimum[2]};
+    const bool building_project = project.name.find("hall") != std::string::npos;
+    const auto drawing_status = building_project
+                                    ? "REFERENCE ONLY — NOT FOR CONSTRUCTION"
+                                    : "DEVELOPMENT MANUFACTURING DETAIL — NOT RELEASED";
     stream << "<g class=\"sheet-group\" id=\"assembly-overview\" data-sheet-kind=\"assembly\">"
               "<rect class=\"sheet\" x=\"20\" y=\"20\" width=\"1560\" height=\"1160\"/>"
               "<text class=\"title\" x=\"50\" y=\"62\">GENERAL ARRANGEMENT — "
            << xml(project.name)
-           << "</text><text class=\"subtitle\" x=\"50\" y=\"87\">A-A · THIRD-ANGLE PROJECTION · RELEASED MANUFACTURING ASSEMBLY · Sheet 1 of "
-           << sheet_count << "</text>";
+           << "</text><text class=\"subtitle\" x=\"50\" y=\"87\">A-A · THIRD-ANGLE PROJECTION · "
+           << drawing_status << " · Sheet 1 of " << sheet_count << "</text>";
     projected_view(stream, overview_parts, overview_bounds, 0, 2, 50, 118, 900, 360,
-                   "SIDE ELEVATION");
+                   building_project ? "TRANSVERSE ELEVATION" : "SIDE ELEVATION");
     projected_view(stream, overview_parts, overview_bounds, 1, 2, 1000, 118, 540, 360,
-                   "INLET END VIEW");
-    projected_view(stream, overview_parts, overview_bounds, 0, 2, 50, 555, 1120, 355,
-                   "LONGITUDINAL SECTION A-A");
-    dimension(stream, 82, 510, 835, "OVERALL LENGTH " + number(overview_extent[0], 1) + " mm");
+                   building_project ? "LONGITUDINAL ELEVATION" : "INLET END VIEW");
+    projected_view(stream, overview_parts, overview_bounds, 0, building_project ? 1 : 2,
+                   50, 555, 1120, 355,
+                   building_project ? "ROOF PLAN" : "LONGITUDINAL SECTION A-A");
+    if (building_project)
+        dimension(stream, 82, 945, 1060,
+                  "OVERALL LENGTH " + number(overview_extent[1], 1) + " mm");
+    dimension(stream, 82, 510, 835,
+              std::string{building_project ? "OVERALL WIDTH " : "OVERALL LENGTH "} +
+                  number(overview_extent[0], 1) + " mm");
     vertical_dimension(stream, 1515, 170, 260,
-                       "MAX DIA Ø" + number(std::max(overview_extent[1], overview_extent[2]), 1) + " mm");
-    stream << "<text class=\"section\" x=\"1205\" y=\"565\">ENGINE DATUM / RELEASE</text>"
-              "<text class=\"row\" x=\"1205\" y=\"593\">A — ENGINE AXIS / SHAFT JOURNALS</text>"
-              "<text class=\"row\" x=\"1205\" y=\"616\">B — FRONT MOUNTING FLANGE</text>"
-              "<text class=\"row\" x=\"1205\" y=\"639\">C — VERTICAL MOUNT PLANE</text>"
+                       std::string{building_project ? "OVERALL HEIGHT " : "MAX DIA Ø"} +
+                           number(building_project
+                                      ? overview_extent[2]
+                                      : std::max(overview_extent[1], overview_extent[2]),
+                                  1) +
+                           " mm");
+    stream << "<text class=\"section\" x=\"1205\" y=\"565\">"
+           << (building_project ? "BUILDING DATUM / STATUS" : "ENGINE DATUM / STATUS")
+           << "</text><text class=\"row\" x=\"1205\" y=\"593\">"
+           << (building_project ? "A — FOUNDATION / COLUMN GRID" : "A — ENGINE AXIS / SHAFT JOURNALS")
+           << "</text><text class=\"row\" x=\"1205\" y=\"616\">"
+           << (building_project ? "B — LEFT COLUMN BASE LINE" : "B — FRONT MOUNTING FLANGE")
+           << "</text><text class=\"row\" x=\"1205\" y=\"639\">"
+           << (building_project ? "C — FINISHED FLOOR LEVEL" : "C — VERTICAL MOUNT PLANE")
+           << "</text>"
               "<text class=\"row\" x=\"1205\" y=\"680\">GENERAL TOLERANCE ISO 2768-mK</text>"
               "<text class=\"row\" x=\"1205\" y=\"703\">DIMENSIONING ISO 129-1</text>"
               "<text class=\"row\" x=\"1205\" y=\"726\">PROJECTION ISO 5456-2</text>"
@@ -294,7 +314,8 @@ auto write_svg(const compiler::ir::Project& project, const cad::ProjectAnalysis&
            << xml(project.name) << "-GA · REV A · SHEET 1/" << sheet_count
            << "</text><text class=\"row\" x=\"1055\" y=\"1108\">UNITS: "
            << xml(project.canonical_length_unit)
-           << " · SCALE: NTS · THIRD ANGLE</text><text class=\"row\" x=\"1055\" y=\"1137\">STATUS: MANUFACTURING RELEASE · DATUMS A | B | C</text></g>\n";
+           << " · SCALE: NTS · THIRD ANGLE</text><text class=\"row\" x=\"1055\" y=\"1137\">STATUS: "
+           << drawing_status << " · DATUMS A | B | C</text></g>\n";
 
     std::size_t sheet_index = 1;
     std::set<std::string> emitted_families;

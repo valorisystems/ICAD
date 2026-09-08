@@ -114,9 +114,18 @@ struct AssemblyConnection {
     std::string standard;
     std::string fastener;
     std::string fit;
+    std::string filler;
+    std::string weld_process;
     double clearance_mm{};
+    double weld_size_mm{};
+    double weld_length_mm{};
+    double filler_diameter_mm{};
+    double stock_length_mm{};
+    double deposition_efficiency{};
     double interface_gap_mm{};
     double axis_alignment{};
+    std::size_t quantity{1};
+    bool quantity_explicit{};
     bool automatic{};
     bool aligned{};
 };
@@ -267,6 +276,7 @@ struct Feature {
 
 struct Material {
     std::string name;
+    std::string profile;
     std::string preset;
     std::array<double, 4> base_color{};
     double metallic{};

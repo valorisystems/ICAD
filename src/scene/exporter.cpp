@@ -253,6 +253,7 @@ auto write_materials(std::ostream& output, const compiler::ir::Project& project)
             output << ',';
         }
         output << "{\"name\":" << json_string(material.name)
+               << ",\"profile\":" << json_string(material.profile)
                << ",\"preset\":" << json_string(material.preset) << ",\"baseColor\":["
                << material.base_color[0] << ',' << material.base_color[1] << ','
                << material.base_color[2] << ',' << material.base_color[3]

@@ -1033,7 +1033,8 @@ auto write_comparison_design(std::ostringstream& output, const compiler::ir::Pro
         if (index != 0)
             output << ',';
         const auto& material = project.materials[index];
-        output << "{\"name\":" << quoted(material.name) << ",\"preset\":"
+        output << "{\"name\":" << quoted(material.name) << ",\"profile\":"
+               << quoted(material.profile) << ",\"preset\":"
                << quoted(material.preset) << ",\"texture\":" << quoted(material.texture)
                << '}';
     }

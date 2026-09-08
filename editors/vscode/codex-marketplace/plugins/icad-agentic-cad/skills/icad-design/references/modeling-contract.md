@@ -8,6 +8,26 @@ parameters/datums -> sketch workspace -> named path entities -> feature history
 -> scene -> visual feedback
 ```
 
+## Procurement and BOM contract
+
+Model one body definition plus assembly occurrences for repeated manufactured
+items. Use explicit connection `QUANTITY` values for bolts, anchors, and welds;
+visual bolt cylinders are not a quantity source. Bind every material to a
+source-traceable `PROFILE`, then validate `icad bom-json` for:
+
+- grouped line-item quantity and occurrence list;
+- volume, density or supplier areal-mass basis, calculated mass, and nulls where
+  no defensible material property exists;
+- fastener nominal diameter, declared length and property class, with missing
+  finish/nut/washer fields retained as procurement blockers;
+- weld deposited volume, deposition efficiency, filler mass, supplier package
+  mass, and rounded-up package quantity;
+- English/French descriptions and limitations.
+
+Treat `procurementReady:false` as an actionable controlled-data result. Do not
+replace missing architectural, structural, supplier, or test evidence with an
+agent estimate.
+
 ## Current sketch grammar
 
 The compiler supports legacy one-contour sketches and, when

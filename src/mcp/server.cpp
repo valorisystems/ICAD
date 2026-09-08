@@ -381,7 +381,7 @@ auto send(std::ostream& output, const json::Value& message) -> void {
     return tool_result(parsed_value(serialized), !evaluation.manifest_valid);
 }
 
-[[nodiscard]] auto material_library() -> json::Value {
+[[nodiscard]] auto material_library(const json::Value* arguments) -> json::Value {
     json::Value::Array presets;
     for (const auto& material : materials::all()) {
         presets.push_back(object({
@@ -394,7 +394,21 @@ auto send(std::ostream& output, const json::Value& message) -> void {
             {"textureSeed", static_cast<double>(material.texture_seed)},
         }));
     }
-    return tool_result(object({{"presets", json::Value{std::move(presets)}}}));
+    const auto* material_class = string_at(arguments, "class");
+    auto catalog = parsed_value(materials::catalog_json(
+        material_class == nullptr ? std::optional<std::string_view>{}
+                                  : std::optional<std::string_view>{*material_class}));
+    return tool_result(object({{"presets", json::Value{std::move(presets)}},
+                               {"engineeringCatalog", std::move(catalog)}}));
+}
+
+[[nodiscard]] auto material_profile(const json::Value* arguments) -> json::Value {
+    const auto* id = string_at(arguments, "id");
+    if (id == nullptr)
+        return tool_error("ICAD-MCP-ARGS", "material inspection requires string argument 'id'");
+    if (materials::find_profile(*id) == nullptr)
+        return tool_error("ICAD-MCP-MATERIAL", "unknown engineering material profile '" + *id + "'");
+    return tool_result(parsed_value(materials::catalog_json(std::nullopt, *id)));
 }
 
 [[nodiscard]] auto language_guide() -> json::Value {
@@ -405,7 +419,10 @@ auto send(std::ostream& output, const json::Value& message) -> void {
         "PARAMETER and ANGLE declarations accept scalar arithmetic with parentheses; + and - "
         "require matching dimensions, while * and / support the advertised scalar-expression "
         "rules. References may be local names or project-qualified names such as robot.width. "
-        "Feature scalar properties accept the same expressions. Declare MATERIAL symbol PRESET. "
+        "Feature scalar properties accept the same expressions. Declare visual-only MATERIAL "
+        "symbol PRESET, or a material block with PROFILE engineering_profile and optional PRESET "
+        "appearance override. Query icad.materials or icad.material.inspect for valid sourced "
+        "profiles. "
         "Spatial mechanism source "
         "uses ANGLE name quantity, POINT3 name X Y Z where coordinates may reference compatible "
         "parameters, normalized VECTOR name X Y Z, derived POINT3 name FROM point ALONG vector "
@@ -413,7 +430,10 @@ auto send(std::ostream& output, const json::Value& message) -> void {
         "source AROUND axis BY angle, and POSE body AT point "
         "ROTATION X Y Z. "
         "INSTANCE name OF body AT point ROTATION X Y Z reuses one body definition as a named "
-        "occurrence. Joint values solve instance delivery geometry through the parent chain. "
+        "occurrence. CONNECT may declare QUANTITY for fasteners; WELDED connections require "
+        "FILLER, PROCESS, WELD_SIZE, WELD_LENGTH, FILLER_DIAMETER, STOCK_LENGTH, and "
+        "DEPOSITION_EFFICIENCY so the bilingual BOM can calculate consumables. Joint values "
+        "solve instance delivery geometry through the parent chain. "
         "Declare FIXED, REVOLUTE, or PRISMATIC JOINT relationships with named points and axes; "
         "moving joints require VALUE and LIMIT. A PROFILE uses at least "
         "three POINT x-unit y-unit lines, START followed by LINE or ARC endpoint CENTER center "
@@ -877,7 +897,8 @@ auto send(std::ostream& output, const json::Value& message) -> void {
 {"name":"icad.agent.bootstrap","title":"Bootstrap design from prompt","description":"Classify a short design prompt and return a complete compiler-valid ICAD source template, acceptance criteria, parameter strategy, and shortest tool workflow.","inputSchema":{"type":"object","properties":{"prompt":{"type":"string","minLength":1}},"required":["prompt"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
 {"name":"icad.agent.create","title":"Create complete design from prompt","description":"In one call, classify a prompt, compile and review a maintained parametric design, commit its source with optimistic concurrency, and build the complete artifact package.","inputSchema":{"type":"object","properties":{"prompt":{"type":"string","minLength":1},"path":{"type":"string"},"expectedRevision":{"type":"string"},"outputDirectory":{"type":"string"},"modelName":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"}},"required":["prompt","path","expectedRevision","outputDirectory","modelName"],"additionalProperties":false},"annotations":{"readOnlyHint":false,"destructiveHint":false}},
 {"name":"icad.agent.review","title":"Review design readiness","description":"Compile and perform constraints, manufacturing, topology, metrics, and interference review in one call with focused next actions.","inputSchema":{"type":"object","properties":{"source":{"type":"string"}},"required":["source"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
-{"name":"icad.materials","title":"ICAD material presets","description":"List deterministic embedded PBR material presets and texture metadata.","inputSchema":{"type":"object","additionalProperties":false},"annotations":{"readOnlyHint":true}},
+{"name":"icad.materials","title":"ICAD material library","description":"List deterministic PBR presets and source-traceable engineering material profiles with composition, conditioned properties, product forms, limitations, and supplier datasheets.","inputSchema":{"type":"object","properties":{"class":{"type":"string"}},"additionalProperties":false},"annotations":{"readOnlyHint":true}},
+{"name":"icad.material.inspect","title":"Inspect engineering material profile","description":"Return one source-traceable material profile by stable ID or alias without inventing undisclosed composition or design allowables.","inputSchema":{"type":"object","properties":{"id":{"type":"string"}},"required":["id"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
 {"name":"icad.compile","title":"Compile ICAD source","description":"Lex, parse, resolve, type-check, and semantically validate ICAD source with stable diagnostics.","inputSchema":{"type":"object","properties":{"source":{"type":"string","description":"Complete ICAD source text"}},"required":["source"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
 {"name":"icad.validate","title":"Validate engineering rules","description":"Compile ICAD source and evaluate geometric constraints and manufacturing rules.","inputSchema":{"type":"object","properties":{"source":{"type":"string"}},"required":["source"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
 {"name":"icad.measure","title":"Measure ICAD design","description":"Return surface area, volume, and world bounds for compiled ICAD source.","inputSchema":{"type":"object","properties":{"source":{"type":"string"}},"required":["source"],"additionalProperties":false},"annotations":{"readOnlyHint":true}},
@@ -916,7 +937,9 @@ auto send(std::ostream& output, const json::Value& message) -> void {
     if (name == "icad.agent.review")
         return agent_review(arguments);
     if (name == "icad.materials")
-        return material_library();
+        return material_library(arguments);
+    if (name == "icad.material.inspect")
+        return material_profile(arguments);
     if (name == "icad.compile")
         return compile_source(arguments);
     if (name == "icad.validate")
