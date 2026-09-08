@@ -1,0 +1,1686 @@
+# CEN26A-01-88101 Hall Clinker reference-driven CAD acceptance assembly.
+# The adjacent DESIGN_PREPARATION.md records given, derived, assumed and open data.
+# This is not an independently checked structural design or construction release.
+REQUIRES ICAD 1.0
+REQUIRES CAPABILITY PARAMETER_EXPRESSIONS_V1
+REQUIRES CAPABILITY QUALIFIED_VALUE_REFERENCES_V1
+REQUIRES CAPABILITY ASSEMBLY_OCCURRENCES
+REQUIRES CAPABILITY MANUFACTURING_CONNECTIONS_V1
+REQUIRES CAPABILITY MATERIAL_PROFILE_V1
+REQUIRES CAPABILITY CALCULATED_BILINGUAL_BOM_V1
+REQUIRES CAPABILITY MAGNETIC_INTERFACE_SNAP_V1
+REQUIRES CAPABILITY VISUAL_JSON_V1
+PROJECT hall_clinker_cen26a_01_88101
+UNITS mm
+TOLERANCE LINEAR 0.1 mm ANGULAR 0.1 deg
+
+# Principal dimensions from the calculation note.
+PARAMETER hall_length 90000 mm
+PARAMETER hall_width 47900 mm
+PARAMETER bay_spacing 9000 mm
+PARAMETER eave_height 12500 mm
+PARAMETER ridge_height 17300 mm
+PARAMETER ridge_x 23950 mm
+PARAMETER left_base_height 2000 mm
+PARAMETER right_base_height 7000 mm
+PARAMETER left_column_length 10500 mm
+PARAMETER right_column_length 5500 mm
+PARAMETER roof_half_length 24426 mm
+PARAMETER purlin_assumed_flange 80 mm
+PARAMETER purlin_thickness 3 mm
+ANGLE roof_pitch 11.332934 deg
+
+# Repetition offsets for the eleven transverse portals and ten longitudinal bays.
+POINT3 origin 0 mm 0 mm 0 mm
+POINT3 frame_1 0 mm 9000 mm 0 mm
+POINT3 frame_2 0 mm 18000 mm 0 mm
+POINT3 frame_3 0 mm 27000 mm 0 mm
+POINT3 frame_4 0 mm 36000 mm 0 mm
+POINT3 frame_5 0 mm 45000 mm 0 mm
+POINT3 frame_6 0 mm 54000 mm 0 mm
+POINT3 frame_7 0 mm 63000 mm 0 mm
+POINT3 frame_8 0 mm 72000 mm 0 mm
+POINT3 frame_9 0 mm 81000 mm 0 mm
+POINT3 frame_10 0 mm 90000 mm 0 mm
+
+# Main member paths.
+POINT3 left_column_start 0 mm 0 mm 2000 mm
+POINT3 left_column_end 0 mm 0 mm 12500 mm
+POINT3 right_column_start 47900 mm 0 mm 7000 mm
+POINT3 right_column_end 47900 mm 0 mm 12500 mm
+POINT3 ridge_start 23950 mm 0 mm 17300 mm
+# Rafter centerline endpoints are trimmed so the swept IPE450 end envelopes
+# meet, but do not penetrate, the IPE600 column faces and ridge splice plane.
+POINT3 left_rafter_start 154.215 mm 0 mm 12530.9 mm
+POINT3 left_rafter_end 23905.785 mm 0 mm 17291.14 mm
+POINT3 right_rafter_start 23994.215 mm 0 mm 17291.14 mm
+POINT3 right_rafter_end 47745.785 mm 0 mm 12530.9 mm
+POINT3 left_eave_bay_end 0 mm 9000 mm 12500 mm
+POINT3 right_eave_bay_end 47900 mm 9000 mm 12500 mm
+POINT3 ridge_bay_end 23950 mm 9000 mm 17300 mm
+POINT3 left_eave_beam_start 0 mm 300 mm 12500 mm
+POINT3 left_eave_beam_end 0 mm 8700 mm 12500 mm
+POINT3 right_eave_beam_start 47900 mm 300 mm 12500 mm
+POINT3 right_eave_beam_end 47900 mm 8700 mm 12500 mm
+POINT3 ridge_beam_start 23950 mm 95 mm 17300 mm
+POINT3 ridge_beam_end 23950 mm 8905 mm 17300 mm
+
+# Roof purlin definition and line offsets. Roof-line elevation plus 350 mm seats
+# the Z250 section above the IPE450 rafter rather than through its web.
+POINT3 purlin_start 6000 mm 95 mm 14052.5 mm
+POINT3 purlin_end 6000 mm 8905 mm 14052.5 mm
+POINT3 p_l2_0 6000 mm 0 mm 1202.5 mm
+POINT3 p_l2_1 6000 mm 9000 mm 1202.5 mm
+POINT3 p_l2_2 6000 mm 18000 mm 1202.5 mm
+POINT3 p_l2_3 6000 mm 27000 mm 1202.5 mm
+POINT3 p_l2_4 6000 mm 36000 mm 1202.5 mm
+POINT3 p_l2_5 6000 mm 45000 mm 1202.5 mm
+POINT3 p_l2_6 6000 mm 54000 mm 1202.5 mm
+POINT3 p_l2_7 6000 mm 63000 mm 1202.5 mm
+POINT3 p_l2_8 6000 mm 72000 mm 1202.5 mm
+POINT3 p_l2_9 6000 mm 81000 mm 1202.5 mm
+POINT3 p_l3_0 12000 mm 0 mm 2405 mm
+POINT3 p_l3_1 12000 mm 9000 mm 2405 mm
+POINT3 p_l3_2 12000 mm 18000 mm 2405 mm
+POINT3 p_l3_3 12000 mm 27000 mm 2405 mm
+POINT3 p_l3_4 12000 mm 36000 mm 2405 mm
+POINT3 p_l3_5 12000 mm 45000 mm 2405 mm
+POINT3 p_l3_6 12000 mm 54000 mm 2405 mm
+POINT3 p_l3_7 12000 mm 63000 mm 2405 mm
+POINT3 p_l3_8 12000 mm 72000 mm 2405 mm
+POINT3 p_l3_9 12000 mm 81000 mm 2405 mm
+POINT3 p_r1_0 23900 mm 0 mm 2405 mm
+POINT3 p_r1_1 23900 mm 9000 mm 2405 mm
+POINT3 p_r1_2 23900 mm 18000 mm 2405 mm
+POINT3 p_r1_3 23900 mm 27000 mm 2405 mm
+POINT3 p_r1_4 23900 mm 36000 mm 2405 mm
+POINT3 p_r1_5 23900 mm 45000 mm 2405 mm
+POINT3 p_r1_6 23900 mm 54000 mm 2405 mm
+POINT3 p_r1_7 23900 mm 63000 mm 2405 mm
+POINT3 p_r1_8 23900 mm 72000 mm 2405 mm
+POINT3 p_r1_9 23900 mm 81000 mm 2405 mm
+POINT3 p_r2_0 29900 mm 0 mm 1202.5 mm
+POINT3 p_r2_1 29900 mm 9000 mm 1202.5 mm
+POINT3 p_r2_2 29900 mm 18000 mm 1202.5 mm
+POINT3 p_r2_3 29900 mm 27000 mm 1202.5 mm
+POINT3 p_r2_4 29900 mm 36000 mm 1202.5 mm
+POINT3 p_r2_5 29900 mm 45000 mm 1202.5 mm
+POINT3 p_r2_6 29900 mm 54000 mm 1202.5 mm
+POINT3 p_r2_7 29900 mm 63000 mm 1202.5 mm
+POINT3 p_r2_8 29900 mm 72000 mm 1202.5 mm
+POINT3 p_r2_9 29900 mm 81000 mm 1202.5 mm
+POINT3 p_r3_0 35900 mm 0 mm 0 mm
+POINT3 p_r3_1 35900 mm 9000 mm 0 mm
+POINT3 p_r3_2 35900 mm 18000 mm 0 mm
+POINT3 p_r3_3 35900 mm 27000 mm 0 mm
+POINT3 p_r3_4 35900 mm 36000 mm 0 mm
+POINT3 p_r3_5 35900 mm 45000 mm 0 mm
+POINT3 p_r3_6 35900 mm 54000 mm 0 mm
+POINT3 p_r3_7 35900 mm 63000 mm 0 mm
+POINT3 p_r3_8 35900 mm 72000 mm 0 mm
+POINT3 p_r3_9 35900 mm 81000 mm 0 mm
+POINT3 right_purlin_start 29900 mm 95 mm 16457.5 mm
+POINT3 right_purlin_end 29900 mm 8905 mm 16457.5 mm
+POINT3 pr2_0 6000 mm 0 mm -1202.5 mm
+POINT3 pr2_1 6000 mm 9000 mm -1202.5 mm
+POINT3 pr2_2 6000 mm 18000 mm -1202.5 mm
+POINT3 pr2_3 6000 mm 27000 mm -1202.5 mm
+POINT3 pr2_4 6000 mm 36000 mm -1202.5 mm
+POINT3 pr2_5 6000 mm 45000 mm -1202.5 mm
+POINT3 pr2_6 6000 mm 54000 mm -1202.5 mm
+POINT3 pr2_7 6000 mm 63000 mm -1202.5 mm
+POINT3 pr2_8 6000 mm 72000 mm -1202.5 mm
+POINT3 pr2_9 6000 mm 81000 mm -1202.5 mm
+POINT3 pr3_0 12000 mm 0 mm -2405 mm
+POINT3 pr3_1 12000 mm 9000 mm -2405 mm
+POINT3 pr3_2 12000 mm 18000 mm -2405 mm
+POINT3 pr3_3 12000 mm 27000 mm -2405 mm
+POINT3 pr3_4 12000 mm 36000 mm -2405 mm
+POINT3 pr3_5 12000 mm 45000 mm -2405 mm
+POINT3 pr3_6 12000 mm 54000 mm -2405 mm
+POINT3 pr3_7 12000 mm 63000 mm -2405 mm
+POINT3 pr3_8 12000 mm 72000 mm -2405 mm
+POINT3 pr3_9 12000 mm 81000 mm -2405 mm
+
+# Sheet-placement offsets. Seventy-nine full 1130 mm roof-profile widths plus
+# one 730 mm edge trim cover the 90000 mm length exactly; wall sheets use
+# ninety 1000 mm useful widths.
+POINT3 roof_sheet_y_01 0 mm 1130 mm 0 mm
+POINT3 roof_sheet_y_02 0 mm 2260 mm 0 mm
+POINT3 roof_sheet_y_03 0 mm 3390 mm 0 mm
+POINT3 roof_sheet_y_04 0 mm 4520 mm 0 mm
+POINT3 roof_sheet_y_05 0 mm 5650 mm 0 mm
+POINT3 roof_sheet_y_06 0 mm 6780 mm 0 mm
+POINT3 roof_sheet_y_07 0 mm 7910 mm 0 mm
+POINT3 roof_sheet_y_08 0 mm 9040 mm 0 mm
+POINT3 roof_sheet_y_09 0 mm 10170 mm 0 mm
+POINT3 roof_sheet_y_10 0 mm 11300 mm 0 mm
+POINT3 roof_sheet_y_11 0 mm 12430 mm 0 mm
+POINT3 roof_sheet_y_12 0 mm 13560 mm 0 mm
+POINT3 roof_sheet_y_13 0 mm 14690 mm 0 mm
+POINT3 roof_sheet_y_14 0 mm 15820 mm 0 mm
+POINT3 roof_sheet_y_15 0 mm 16950 mm 0 mm
+POINT3 roof_sheet_y_16 0 mm 18080 mm 0 mm
+POINT3 roof_sheet_y_17 0 mm 19210 mm 0 mm
+POINT3 roof_sheet_y_18 0 mm 20340 mm 0 mm
+POINT3 roof_sheet_y_19 0 mm 21470 mm 0 mm
+POINT3 roof_sheet_y_20 0 mm 22600 mm 0 mm
+POINT3 roof_sheet_y_21 0 mm 23730 mm 0 mm
+POINT3 roof_sheet_y_22 0 mm 24860 mm 0 mm
+POINT3 roof_sheet_y_23 0 mm 25990 mm 0 mm
+POINT3 roof_sheet_y_24 0 mm 27120 mm 0 mm
+POINT3 roof_sheet_y_25 0 mm 28250 mm 0 mm
+POINT3 roof_sheet_y_26 0 mm 29380 mm 0 mm
+POINT3 roof_sheet_y_27 0 mm 30510 mm 0 mm
+POINT3 roof_sheet_y_28 0 mm 31640 mm 0 mm
+POINT3 roof_sheet_y_29 0 mm 32770 mm 0 mm
+POINT3 roof_sheet_y_30 0 mm 33900 mm 0 mm
+POINT3 roof_sheet_y_31 0 mm 35030 mm 0 mm
+POINT3 roof_sheet_y_32 0 mm 36160 mm 0 mm
+POINT3 roof_sheet_y_33 0 mm 37290 mm 0 mm
+POINT3 roof_sheet_y_34 0 mm 38420 mm 0 mm
+POINT3 roof_sheet_y_35 0 mm 39550 mm 0 mm
+POINT3 roof_sheet_y_36 0 mm 40680 mm 0 mm
+POINT3 roof_sheet_y_37 0 mm 41810 mm 0 mm
+POINT3 roof_sheet_y_38 0 mm 42940 mm 0 mm
+POINT3 roof_sheet_y_39 0 mm 44070 mm 0 mm
+POINT3 roof_sheet_y_40 0 mm 45200 mm 0 mm
+POINT3 roof_sheet_y_41 0 mm 46330 mm 0 mm
+POINT3 roof_sheet_y_42 0 mm 47460 mm 0 mm
+POINT3 roof_sheet_y_43 0 mm 48590 mm 0 mm
+POINT3 roof_sheet_y_44 0 mm 49720 mm 0 mm
+POINT3 roof_sheet_y_45 0 mm 50850 mm 0 mm
+POINT3 roof_sheet_y_46 0 mm 51980 mm 0 mm
+POINT3 roof_sheet_y_47 0 mm 53110 mm 0 mm
+POINT3 roof_sheet_y_48 0 mm 54240 mm 0 mm
+POINT3 roof_sheet_y_49 0 mm 55370 mm 0 mm
+POINT3 roof_sheet_y_50 0 mm 56500 mm 0 mm
+POINT3 roof_sheet_y_51 0 mm 57630 mm 0 mm
+POINT3 roof_sheet_y_52 0 mm 58760 mm 0 mm
+POINT3 roof_sheet_y_53 0 mm 59890 mm 0 mm
+POINT3 roof_sheet_y_54 0 mm 61020 mm 0 mm
+POINT3 roof_sheet_y_55 0 mm 62150 mm 0 mm
+POINT3 roof_sheet_y_56 0 mm 63280 mm 0 mm
+POINT3 roof_sheet_y_57 0 mm 64410 mm 0 mm
+POINT3 roof_sheet_y_58 0 mm 65540 mm 0 mm
+POINT3 roof_sheet_y_59 0 mm 66670 mm 0 mm
+POINT3 roof_sheet_y_60 0 mm 67800 mm 0 mm
+POINT3 roof_sheet_y_61 0 mm 68930 mm 0 mm
+POINT3 roof_sheet_y_62 0 mm 70060 mm 0 mm
+POINT3 roof_sheet_y_63 0 mm 71190 mm 0 mm
+POINT3 roof_sheet_y_64 0 mm 72320 mm 0 mm
+POINT3 roof_sheet_y_65 0 mm 73450 mm 0 mm
+POINT3 roof_sheet_y_66 0 mm 74580 mm 0 mm
+POINT3 roof_sheet_y_67 0 mm 75710 mm 0 mm
+POINT3 roof_sheet_y_68 0 mm 76840 mm 0 mm
+POINT3 roof_sheet_y_69 0 mm 77970 mm 0 mm
+POINT3 roof_sheet_y_70 0 mm 79100 mm 0 mm
+POINT3 roof_sheet_y_71 0 mm 80230 mm 0 mm
+POINT3 roof_sheet_y_72 0 mm 81360 mm 0 mm
+POINT3 roof_sheet_y_73 0 mm 82490 mm 0 mm
+POINT3 roof_sheet_y_74 0 mm 83620 mm 0 mm
+POINT3 roof_sheet_y_75 0 mm 84750 mm 0 mm
+POINT3 roof_sheet_y_76 0 mm 85880 mm 0 mm
+POINT3 roof_sheet_y_77 0 mm 87010 mm 0 mm
+POINT3 roof_sheet_y_78 0 mm 88140 mm 0 mm
+POINT3 wall_sheet_y_01 0 mm 1000 mm 0 mm
+POINT3 wall_sheet_y_02 0 mm 2000 mm 0 mm
+POINT3 wall_sheet_y_03 0 mm 3000 mm 0 mm
+POINT3 wall_sheet_y_04 0 mm 4000 mm 0 mm
+POINT3 wall_sheet_y_05 0 mm 5000 mm 0 mm
+POINT3 wall_sheet_y_06 0 mm 6000 mm 0 mm
+POINT3 wall_sheet_y_07 0 mm 7000 mm 0 mm
+POINT3 wall_sheet_y_08 0 mm 8000 mm 0 mm
+POINT3 wall_sheet_y_09 0 mm 9000 mm 0 mm
+POINT3 wall_sheet_y_10 0 mm 10000 mm 0 mm
+POINT3 wall_sheet_y_11 0 mm 11000 mm 0 mm
+POINT3 wall_sheet_y_12 0 mm 12000 mm 0 mm
+POINT3 wall_sheet_y_13 0 mm 13000 mm 0 mm
+POINT3 wall_sheet_y_14 0 mm 14000 mm 0 mm
+POINT3 wall_sheet_y_15 0 mm 15000 mm 0 mm
+POINT3 wall_sheet_y_16 0 mm 16000 mm 0 mm
+POINT3 wall_sheet_y_17 0 mm 17000 mm 0 mm
+POINT3 wall_sheet_y_18 0 mm 18000 mm 0 mm
+POINT3 wall_sheet_y_19 0 mm 19000 mm 0 mm
+POINT3 wall_sheet_y_20 0 mm 20000 mm 0 mm
+POINT3 wall_sheet_y_21 0 mm 21000 mm 0 mm
+POINT3 wall_sheet_y_22 0 mm 22000 mm 0 mm
+POINT3 wall_sheet_y_23 0 mm 23000 mm 0 mm
+POINT3 wall_sheet_y_24 0 mm 24000 mm 0 mm
+POINT3 wall_sheet_y_25 0 mm 25000 mm 0 mm
+POINT3 wall_sheet_y_26 0 mm 26000 mm 0 mm
+POINT3 wall_sheet_y_27 0 mm 27000 mm 0 mm
+POINT3 wall_sheet_y_28 0 mm 28000 mm 0 mm
+POINT3 wall_sheet_y_29 0 mm 29000 mm 0 mm
+POINT3 wall_sheet_y_30 0 mm 30000 mm 0 mm
+POINT3 wall_sheet_y_31 0 mm 31000 mm 0 mm
+POINT3 wall_sheet_y_32 0 mm 32000 mm 0 mm
+POINT3 wall_sheet_y_33 0 mm 33000 mm 0 mm
+POINT3 wall_sheet_y_34 0 mm 34000 mm 0 mm
+POINT3 wall_sheet_y_35 0 mm 35000 mm 0 mm
+POINT3 wall_sheet_y_36 0 mm 36000 mm 0 mm
+POINT3 wall_sheet_y_37 0 mm 37000 mm 0 mm
+POINT3 wall_sheet_y_38 0 mm 38000 mm 0 mm
+POINT3 wall_sheet_y_39 0 mm 39000 mm 0 mm
+POINT3 wall_sheet_y_40 0 mm 40000 mm 0 mm
+POINT3 wall_sheet_y_41 0 mm 41000 mm 0 mm
+POINT3 wall_sheet_y_42 0 mm 42000 mm 0 mm
+POINT3 wall_sheet_y_43 0 mm 43000 mm 0 mm
+POINT3 wall_sheet_y_44 0 mm 44000 mm 0 mm
+POINT3 wall_sheet_y_45 0 mm 45000 mm 0 mm
+POINT3 wall_sheet_y_46 0 mm 46000 mm 0 mm
+POINT3 wall_sheet_y_47 0 mm 47000 mm 0 mm
+POINT3 wall_sheet_y_48 0 mm 48000 mm 0 mm
+POINT3 wall_sheet_y_49 0 mm 49000 mm 0 mm
+POINT3 wall_sheet_y_50 0 mm 50000 mm 0 mm
+POINT3 wall_sheet_y_51 0 mm 51000 mm 0 mm
+POINT3 wall_sheet_y_52 0 mm 52000 mm 0 mm
+POINT3 wall_sheet_y_53 0 mm 53000 mm 0 mm
+POINT3 wall_sheet_y_54 0 mm 54000 mm 0 mm
+POINT3 wall_sheet_y_55 0 mm 55000 mm 0 mm
+POINT3 wall_sheet_y_56 0 mm 56000 mm 0 mm
+POINT3 wall_sheet_y_57 0 mm 57000 mm 0 mm
+POINT3 wall_sheet_y_58 0 mm 58000 mm 0 mm
+POINT3 wall_sheet_y_59 0 mm 59000 mm 0 mm
+POINT3 wall_sheet_y_60 0 mm 60000 mm 0 mm
+POINT3 wall_sheet_y_61 0 mm 61000 mm 0 mm
+POINT3 wall_sheet_y_62 0 mm 62000 mm 0 mm
+POINT3 wall_sheet_y_63 0 mm 63000 mm 0 mm
+POINT3 wall_sheet_y_64 0 mm 64000 mm 0 mm
+POINT3 wall_sheet_y_65 0 mm 65000 mm 0 mm
+POINT3 wall_sheet_y_66 0 mm 66000 mm 0 mm
+POINT3 wall_sheet_y_67 0 mm 67000 mm 0 mm
+POINT3 wall_sheet_y_68 0 mm 68000 mm 0 mm
+POINT3 wall_sheet_y_69 0 mm 69000 mm 0 mm
+POINT3 wall_sheet_y_70 0 mm 70000 mm 0 mm
+POINT3 wall_sheet_y_71 0 mm 71000 mm 0 mm
+POINT3 wall_sheet_y_72 0 mm 72000 mm 0 mm
+POINT3 wall_sheet_y_73 0 mm 73000 mm 0 mm
+POINT3 wall_sheet_y_74 0 mm 74000 mm 0 mm
+POINT3 wall_sheet_y_75 0 mm 75000 mm 0 mm
+POINT3 wall_sheet_y_76 0 mm 76000 mm 0 mm
+POINT3 wall_sheet_y_77 0 mm 77000 mm 0 mm
+POINT3 wall_sheet_y_78 0 mm 78000 mm 0 mm
+POINT3 wall_sheet_y_79 0 mm 79000 mm 0 mm
+POINT3 wall_sheet_y_80 0 mm 80000 mm 0 mm
+POINT3 wall_sheet_y_81 0 mm 81000 mm 0 mm
+POINT3 wall_sheet_y_82 0 mm 82000 mm 0 mm
+POINT3 wall_sheet_y_83 0 mm 83000 mm 0 mm
+POINT3 wall_sheet_y_84 0 mm 84000 mm 0 mm
+POINT3 wall_sheet_y_85 0 mm 85000 mm 0 mm
+POINT3 wall_sheet_y_86 0 mm 86000 mm 0 mm
+POINT3 wall_sheet_y_87 0 mm 87000 mm 0 mm
+POINT3 wall_sheet_y_88 0 mm 88000 mm 0 mm
+POINT3 wall_sheet_y_89 0 mm 89000 mm 0 mm
+
+# Envelope sweep paths follow the outer roof plane and both longitudinal walls.
+POINT3 roof_left_eave_outer 0 mm 0 mm 13000 mm
+POINT3 roof_left_lower_end 12048.537640 mm 0 mm 15414.738233 mm
+POINT3 roof_left_upper_start 11901.069340 mm 0 mm 15387.222771 mm
+POINT3 roof_left_upper_end 23949.606980 mm 0 mm 17801.961004 mm
+POINT3 roof_right_upper_start 23950.393020 mm 0 mm 17801.961004 mm
+POINT3 roof_right_upper_end 35998.930660 mm 0 mm 15387.222771 mm
+POINT3 roof_right_lower_start 35851.462360 mm 0 mm 15414.738233 mm
+POINT3 roof_right_eave_outer 47900 mm 0 mm 13000 mm
+POINT3 wall_left_bottom -110 mm 0 mm 2000 mm
+POINT3 wall_left_top -110 mm 0 mm 12500 mm
+POINT3 wall_right_bottom 48010 mm 0 mm 7000 mm
+POINT3 wall_right_top 48010 mm 0 mm 12500 mm
+
+# Selected wall and roof bracing paths, shortened 200 mm from theoretical nodes
+# to preserve assembly clearance in this reference model.
+POINT3 left_brace_a 250 mm 200 mm 2300 mm
+POINT3 left_brace_b 250 mm 8800 mm 12200 mm
+POINT3 left_brace_c 350 mm 200 mm 12200 mm
+POINT3 left_brace_d 350 mm 8800 mm 2300 mm
+POINT3 right_brace_a 47750 mm 200 mm 7300 mm
+POINT3 right_brace_b 47750 mm 8800 mm 12200 mm
+POINT3 right_brace_c 47650 mm 200 mm 12200 mm
+POINT3 right_brace_d 47650 mm 8800 mm 7300 mm
+POINT3 roof_brace_a 500 mm 200 mm 12250 mm
+POINT3 roof_brace_b 23450 mm 8800 mm 16350 mm
+POINT3 roof_brace_c 24450 mm 200 mm 16350 mm
+POINT3 roof_brace_d 47400 mm 8800 mm 12250 mm
+
+# Interfaces and connection axes.
+POINT3 left_foundation_plate_joint 0 mm 0 mm 1960 mm
+POINT3 left_plate_column_joint 0 mm 0 mm 2000 mm
+POINT3 right_foundation_plate_joint 47900 mm 0 mm 6960 mm
+POINT3 right_plate_column_joint 47900 mm 0 mm 7000 mm
+POINT3 left_knee_joint 110 mm 0 mm 12500 mm
+POINT3 right_knee_joint 47790 mm 0 mm 12500 mm
+POINT3 ridge_joint 23950 mm 0 mm 17300 mm
+VECTOR vertical_up 0 0 1
+VECTOR vertical_down 0 0 -1
+VECTOR left_out -1 0 0
+VECTOR right_out 1 0 0
+
+# Published European section outlines. Fillet radii are left as an explicit
+# fabrication-detail limitation; web/flange dimensions are modeled as one solid sweep.
+PROFILE ipe600_section
+POINT -110 mm -300 mm
+POINT 110 mm -300 mm
+POINT 110 mm -281 mm
+POINT 6 mm -281 mm
+POINT 6 mm 281 mm
+POINT 110 mm 281 mm
+POINT 110 mm 300 mm
+POINT -110 mm 300 mm
+POINT -110 mm 281 mm
+POINT -6 mm 281 mm
+POINT -6 mm -281 mm
+POINT -110 mm -281 mm
+END
+PROFILE ipe450_section
+POINT -95 mm -225 mm
+POINT 95 mm -225 mm
+POINT 95 mm -210.4 mm
+POINT 4.7 mm -210.4 mm
+POINT 4.7 mm 210.4 mm
+POINT 95 mm 210.4 mm
+POINT 95 mm 225 mm
+POINT -95 mm 225 mm
+POINT -95 mm 210.4 mm
+POINT -4.7 mm 210.4 mm
+POINT -4.7 mm -210.4 mm
+POINT -95 mm -210.4 mm
+END
+PROFILE hea140_section
+POINT -70 mm -66.5 mm
+POINT 70 mm -66.5 mm
+POINT 70 mm -58 mm
+POINT 2.75 mm -58 mm
+POINT 2.75 mm 58 mm
+POINT 70 mm 58 mm
+POINT 70 mm 66.5 mm
+POINT -70 mm 66.5 mm
+POINT -70 mm 58 mm
+POINT -2.75 mm 58 mm
+POINT -2.75 mm -58 mm
+POINT -70 mm -58 mm
+END
+PROFILE hea120_section
+POINT -60 mm -57 mm
+POINT 60 mm -57 mm
+POINT 60 mm -49 mm
+POINT 2.5 mm -49 mm
+POINT 2.5 mm 49 mm
+POINT 60 mm 49 mm
+POINT 60 mm 57 mm
+POINT -60 mm 57 mm
+POINT -60 mm 49 mm
+POINT -2.5 mm 49 mm
+POINT -2.5 mm -49 mm
+POINT -60 mm -49 mm
+END
+PROFILE cae80x8_section
+POINT 0 mm 0 mm
+POINT 80 mm 0 mm
+POINT 80 mm 8 mm
+POINT 8 mm 8 mm
+POINT 8 mm 80 mm
+POINT 0 mm 80 mm
+END
+PROFILE z250x3_section
+POINT -80 mm -125 mm
+POINT 3 mm -125 mm
+POINT 3 mm 122 mm
+POINT 80 mm 122 mm
+POINT 80 mm 125 mm
+POINT 0 mm 125 mm
+POINT 0 mm -122 mm
+POINT -80 mm -122 mm
+END
+PROFILE z250x3_left_section
+POINT -103.003871 mm -106.841951 mm
+POINT -21.622216 mm -123.152263 mm
+POINT 26.915698 mm 119.031698 mm
+POINT 102.414342 mm 103.900446 mm
+POINT 103.003871 mm 106.841951 mm
+POINT 24.563722 mm 122.562733 mm
+POINT -23.974193 mm -119.621228 mm
+POINT -102.414342 mm -103.900446 mm
+END
+PROFILE z250x3_right_section
+POINT -53.876427 mm -138.283515 mm
+POINT 27.505228 mm -121.973204 mm
+POINT -21.032687 mm 120.210757 mm
+POINT 54.465957 mm 135.342010 mm
+POINT 53.876427 mm 138.283515 mm
+POINT -24.563722 mm 122.562733 mm
+POINT 23.974193 mm -119.621228 mm
+POINT -54.465957 mm -135.342010 mm
+END
+
+# Thin-wall profiled sheet sections. Each outline is a closed 0.75 mm strip;
+# sweep produces one connected solid without expensive per-rib booleans.
+PROFILE hacierco_85_280_full_075
+POINT 0 mm 0 mm
+POINT 20 mm 85 mm
+POINT 60 mm 85 mm
+POINT 80 mm 0 mm
+POINT 280 mm 0 mm
+POINT 300 mm 85 mm
+POINT 340 mm 85 mm
+POINT 360 mm 0 mm
+POINT 560 mm 0 mm
+POINT 580 mm 85 mm
+POINT 620 mm 85 mm
+POINT 640 mm 0 mm
+POINT 840 mm 0 mm
+POINT 860 mm 85 mm
+POINT 900 mm 85 mm
+POINT 920 mm 0 mm
+POINT 1120 mm 0 mm
+POINT 1130 mm 0 mm
+POINT 1130 mm 0.75 mm
+POINT 1120 mm 0.75 mm
+POINT 920 mm 0.75 mm
+POINT 900 mm 85.75 mm
+POINT 860 mm 85.75 mm
+POINT 840 mm 0.75 mm
+POINT 640 mm 0.75 mm
+POINT 620 mm 85.75 mm
+POINT 580 mm 85.75 mm
+POINT 560 mm 0.75 mm
+POINT 360 mm 0.75 mm
+POINT 340 mm 85.75 mm
+POINT 300 mm 85.75 mm
+POINT 280 mm 0.75 mm
+POINT 80 mm 0.75 mm
+POINT 60 mm 85.75 mm
+POINT 20 mm 85.75 mm
+POINT 0 mm 0.75 mm
+END
+
+PROFILE hacierco_85_280_trim_075
+POINT 0 mm 0 mm
+POINT 20 mm 85 mm
+POINT 60 mm 85 mm
+POINT 80 mm 0 mm
+POINT 280 mm 0 mm
+POINT 300 mm 85 mm
+POINT 340 mm 85 mm
+POINT 360 mm 0 mm
+POINT 560 mm 0 mm
+POINT 580 mm 85 mm
+POINT 620 mm 85 mm
+POINT 640 mm 0 mm
+POINT 730 mm 0 mm
+POINT 730 mm 0.75 mm
+POINT 640 mm 0.75 mm
+POINT 620 mm 85.75 mm
+POINT 580 mm 85.75 mm
+POINT 560 mm 0.75 mm
+POINT 360 mm 0.75 mm
+POINT 340 mm 85.75 mm
+POINT 300 mm 85.75 mm
+POINT 280 mm 0.75 mm
+POINT 80 mm 0.75 mm
+POINT 60 mm 85.75 mm
+POINT 20 mm 85.75 mm
+POINT 0 mm 0.75 mm
+END
+
+PROFILE trapeza_wall_left_075
+POINT 0 mm 0 mm
+POINT -25 mm 15 mm
+POINT -25 mm 45 mm
+POINT 0 mm 60 mm
+POINT 0 mm 125 mm
+POINT -25 mm 140 mm
+POINT -25 mm 170 mm
+POINT 0 mm 185 mm
+POINT 0 mm 250 mm
+POINT -25 mm 265 mm
+POINT -25 mm 295 mm
+POINT 0 mm 310 mm
+POINT 0 mm 375 mm
+POINT -25 mm 390 mm
+POINT -25 mm 420 mm
+POINT 0 mm 435 mm
+POINT 0 mm 500 mm
+POINT -25 mm 515 mm
+POINT -25 mm 545 mm
+POINT 0 mm 560 mm
+POINT 0 mm 625 mm
+POINT -25 mm 640 mm
+POINT -25 mm 670 mm
+POINT 0 mm 685 mm
+POINT 0 mm 750 mm
+POINT -25 mm 765 mm
+POINT -25 mm 795 mm
+POINT 0 mm 810 mm
+POINT 0 mm 875 mm
+POINT -25 mm 890 mm
+POINT -25 mm 920 mm
+POINT 0 mm 935 mm
+POINT 0 mm 1000 mm
+POINT -0.75 mm 1000 mm
+POINT -0.75 mm 935 mm
+POINT -25.75 mm 920 mm
+POINT -25.75 mm 890 mm
+POINT -0.75 mm 875 mm
+POINT -0.75 mm 810 mm
+POINT -25.75 mm 795 mm
+POINT -25.75 mm 765 mm
+POINT -0.75 mm 750 mm
+POINT -0.75 mm 685 mm
+POINT -25.75 mm 670 mm
+POINT -25.75 mm 640 mm
+POINT -0.75 mm 625 mm
+POINT -0.75 mm 560 mm
+POINT -25.75 mm 545 mm
+POINT -25.75 mm 515 mm
+POINT -0.75 mm 500 mm
+POINT -0.75 mm 435 mm
+POINT -25.75 mm 420 mm
+POINT -25.75 mm 390 mm
+POINT -0.75 mm 375 mm
+POINT -0.75 mm 310 mm
+POINT -25.75 mm 295 mm
+POINT -25.75 mm 265 mm
+POINT -0.75 mm 250 mm
+POINT -0.75 mm 185 mm
+POINT -25.75 mm 170 mm
+POINT -25.75 mm 140 mm
+POINT -0.75 mm 125 mm
+POINT -0.75 mm 60 mm
+POINT -25.75 mm 45 mm
+POINT -25.75 mm 15 mm
+POINT -0.75 mm 0 mm
+END
+
+PROFILE trapeza_wall_right_075
+POINT 0.75 mm 0 mm
+POINT 25.75 mm 15 mm
+POINT 25.75 mm 45 mm
+POINT 0.75 mm 60 mm
+POINT 0.75 mm 125 mm
+POINT 25.75 mm 140 mm
+POINT 25.75 mm 170 mm
+POINT 0.75 mm 185 mm
+POINT 0.75 mm 250 mm
+POINT 25.75 mm 265 mm
+POINT 25.75 mm 295 mm
+POINT 0.75 mm 310 mm
+POINT 0.75 mm 375 mm
+POINT 25.75 mm 390 mm
+POINT 25.75 mm 420 mm
+POINT 0.75 mm 435 mm
+POINT 0.75 mm 500 mm
+POINT 25.75 mm 515 mm
+POINT 25.75 mm 545 mm
+POINT 0.75 mm 560 mm
+POINT 0.75 mm 625 mm
+POINT 25.75 mm 640 mm
+POINT 25.75 mm 670 mm
+POINT 0.75 mm 685 mm
+POINT 0.75 mm 750 mm
+POINT 25.75 mm 765 mm
+POINT 25.75 mm 795 mm
+POINT 0.75 mm 810 mm
+POINT 0.75 mm 875 mm
+POINT 25.75 mm 890 mm
+POINT 25.75 mm 920 mm
+POINT 0.75 mm 935 mm
+POINT 0.75 mm 1000 mm
+POINT 0 mm 1000 mm
+POINT 0 mm 935 mm
+POINT 25 mm 920 mm
+POINT 25 mm 890 mm
+POINT 0 mm 875 mm
+POINT 0 mm 810 mm
+POINT 25 mm 795 mm
+POINT 25 mm 765 mm
+POINT 0 mm 750 mm
+POINT 0 mm 685 mm
+POINT 25 mm 670 mm
+POINT 25 mm 640 mm
+POINT 0 mm 625 mm
+POINT 0 mm 560 mm
+POINT 25 mm 545 mm
+POINT 25 mm 515 mm
+POINT 0 mm 500 mm
+POINT 0 mm 435 mm
+POINT 25 mm 420 mm
+POINT 25 mm 390 mm
+POINT 0 mm 375 mm
+POINT 0 mm 310 mm
+POINT 25 mm 295 mm
+POINT 25 mm 265 mm
+POINT 0 mm 250 mm
+POINT 0 mm 185 mm
+POINT 25 mm 170 mm
+POINT 25 mm 140 mm
+POINT 0 mm 125 mm
+POINT 0 mm 60 mm
+POINT 25 mm 45 mm
+POINT 25 mm 15 mm
+POINT 0 mm 0 mm
+END
+
+MATERIAL primary_steel
+PROFILE ARCELORMITTAL_S275JR_EN_10025_2
+PRESET STRUCTURAL_STEEL
+BASE_COLOR 0.32 0.42 0.52 1
+METALLIC 0.85
+ROUGHNESS 0.32
+END
+MATERIAL plate_steel
+PROFILE ARCELORMITTAL_S235JR_EN_10025_2
+PRESET STRUCTURAL_STEEL
+BASE_COLOR 0.45 0.48 0.52 1
+METALLIC 0.9
+ROUGHNESS 0.3
+END
+MATERIAL concrete CONCRETE
+MATERIAL fastener_steel CHROME
+MATERIAL purlin_steel
+PRESET STRUCTURAL_STEEL
+BASE_COLOR 0.62 0.66 0.68 1
+METALLIC 0.9
+ROUGHNESS 0.28
+END
+MATERIAL roof_cladding_steel
+PROFILE ARCELORMITTAL_HACIERCO_85_280_S350GD_Z275_HAIRPLUS25_075
+PRESET STRUCTURAL_STEEL
+BASE_COLOR 0.64 0.72 0.78 1
+METALLIC 0.82
+ROUGHNESS 0.3
+END
+MATERIAL wall_cladding_steel
+PROFILE ARCELORMITTAL_TRAPEZA_8_125_25_S350GD_Z275_HAIRPLUS25_075
+PRESET STRUCTURAL_STEEL
+BASE_COLOR 0.56 0.64 0.7 1
+METALLIC 0.82
+ROUGHNESS 0.3
+END
+
+# Left S1 foundation: 4.4 x 3.5 x 0.8 m footing with a pedestal to the +2.0 m base.
+BODY foundation_s1_left
+MATERIAL concrete
+SKETCH footing_plan ON PLANE XY
+POINT a -2200 mm -1750 mm FIXED
+POINT b 2200 mm -1750 mm FIXED
+POINT c 2200 mm 1750 mm FIXED
+POINT d -2200 mm 1750 mm FIXED
+LINE ab FROM a TO b
+LINE bc FROM b TO c
+LINE cd FROM c TO d
+LINE da FROM d TO a
+END
+PAD footing FROM footing_plan DEPTH 800 mm NEW
+FEATURE pedestal
+TYPE BOX
+OPERATION UNION
+WIDTH 1400 mm
+DEPTH 1000 mm
+HEIGHT 1160 mm
+ORIGIN_X -700 mm
+ORIGIN_Y -500 mm
+ORIGIN_Z 800 mm
+END
+END
+
+# Right S2 footing and pedestal follow the raised support datum shown in the note.
+BODY foundation_s2_right
+MATERIAL concrete
+FEATURE footing
+TYPE BOX
+WIDTH 2100 mm
+DEPTH 2500 mm
+HEIGHT 500 mm
+ORIGIN_X 46850 mm
+ORIGIN_Y -1250 mm
+END
+FEATURE pedestal
+TYPE BOX
+OPERATION UNION
+WIDTH 600 mm
+DEPTH 600 mm
+HEIGHT 6460 mm
+ORIGIN_X 47600 mm
+ORIGIN_Y -300 mm
+ORIGIN_Z 500 mm
+END
+END
+
+BODY base_plate_left
+MATERIAL plate_steel
+FEATURE plate_900x600x40
+TYPE BOX
+WIDTH 900 mm
+DEPTH 600 mm
+HEIGHT 40 mm
+ORIGIN_X -450 mm
+ORIGIN_Y -300 mm
+ORIGIN_Z 1960 mm
+END
+END
+BODY base_plate_right
+MATERIAL plate_steel
+FEATURE plate_620x540x40
+TYPE BOX
+WIDTH 620 mm
+DEPTH 540 mm
+HEIGHT 40 mm
+ORIGIN_X 47590 mm
+ORIGIN_Y -270 mm
+ORIGIN_Z 6960 mm
+END
+END
+
+# Primary portal members are real single swept solids using I-section outlines.
+BODY portal_column_left
+MATERIAL primary_steel
+FEATURE ipe600_left_column
+TYPE SWEEP
+PROFILE ipe600_section
+PATH left_column_start left_column_end
+END
+END
+BODY portal_column_right
+MATERIAL primary_steel
+FEATURE ipe600_right_column
+TYPE SWEEP
+PROFILE ipe600_section
+PATH right_column_start right_column_end
+END
+END
+BODY portal_rafter_left
+MATERIAL primary_steel
+FEATURE ipe450_left_rafter
+TYPE SWEEP
+PROFILE ipe450_section
+PATH left_rafter_start left_rafter_end
+END
+END
+BODY portal_rafter_right
+MATERIAL primary_steel
+FEATURE ipe450_right_rafter
+TYPE SWEEP
+PROFILE ipe450_section
+PATH right_rafter_start right_rafter_end
+END
+END
+
+# Longitudinal eave/ridge members are nine-metre HEA segments.
+BODY eave_beam_left
+MATERIAL primary_steel
+FEATURE hea140_eave
+TYPE SWEEP
+PROFILE hea140_section
+PATH left_eave_beam_start left_eave_beam_end
+END
+END
+BODY eave_beam_right
+MATERIAL primary_steel
+FEATURE hea140_eave
+TYPE SWEEP
+PROFILE hea140_section
+PATH right_eave_beam_start right_eave_beam_end
+END
+END
+BODY ridge_beam
+MATERIAL primary_steel
+FEATURE hea120_ridge
+TYPE SWEEP
+PROFILE hea120_section
+PATH ridge_beam_start ridge_beam_end
+END
+END
+
+BODY roof_purlin_z250x3
+MATERIAL purlin_steel
+FEATURE cold_formed_z_purlin
+TYPE SWEEP
+PROFILE z250x3_left_section
+PATH purlin_start purlin_end
+END
+END
+BODY roof_purlin_right_z250x3
+MATERIAL purlin_steel
+FEATURE cold_formed_z_purlin
+TYPE SWEEP
+PROFILE z250x3_right_section
+PATH right_purlin_start right_purlin_end
+END
+END
+
+# Profiled envelope. Each purchasable panel is one native swept thin-wall
+# corrugated solid; assembly instances provide the exact take-off quantities.
+BODY roof_panel_left_lower_full
+MATERIAL roof_cladding_steel
+FEATURE hacierco_sheet
+TYPE SWEEP
+PROFILE hacierco_85_280_full_075
+PATH roof_left_eave_outer roof_left_lower_end
+END
+END
+BODY roof_panel_left_upper_full
+MATERIAL roof_cladding_steel
+FEATURE hacierco_sheet
+TYPE SWEEP
+PROFILE hacierco_85_280_full_075
+PATH roof_left_upper_start roof_left_upper_end
+END
+END
+BODY roof_panel_left_lower_trim
+MATERIAL roof_cladding_steel
+FEATURE hacierco_edge_trim
+TYPE SWEEP
+PROFILE hacierco_85_280_trim_075
+PATH roof_left_eave_outer roof_left_lower_end
+ORIGIN_Y 89270 mm
+END
+END
+BODY roof_panel_left_upper_trim
+MATERIAL roof_cladding_steel
+FEATURE hacierco_edge_trim
+TYPE SWEEP
+PROFILE hacierco_85_280_trim_075
+PATH roof_left_upper_start roof_left_upper_end
+ORIGIN_Y 89270 mm
+END
+END
+BODY roof_panel_right_upper_full
+MATERIAL roof_cladding_steel
+FEATURE hacierco_sheet
+TYPE SWEEP
+PROFILE hacierco_85_280_full_075
+PATH roof_right_upper_start roof_right_upper_end
+END
+END
+BODY roof_panel_right_lower_full
+MATERIAL roof_cladding_steel
+FEATURE hacierco_sheet
+TYPE SWEEP
+PROFILE hacierco_85_280_full_075
+PATH roof_right_lower_start roof_right_eave_outer
+END
+END
+BODY roof_panel_right_upper_trim
+MATERIAL roof_cladding_steel
+FEATURE hacierco_edge_trim
+TYPE SWEEP
+PROFILE hacierco_85_280_trim_075
+PATH roof_right_upper_start roof_right_upper_end
+ORIGIN_Y 89270 mm
+END
+END
+BODY roof_panel_right_lower_trim
+MATERIAL roof_cladding_steel
+FEATURE hacierco_edge_trim
+TYPE SWEEP
+PROFILE hacierco_85_280_trim_075
+PATH roof_right_lower_start roof_right_eave_outer
+ORIGIN_Y 89270 mm
+END
+END
+BODY wall_cladding_left_full
+MATERIAL wall_cladding_steel
+FEATURE trapeza_sheet
+TYPE SWEEP
+PROFILE trapeza_wall_left_075
+PATH wall_left_bottom wall_left_top
+END
+END
+BODY wall_cladding_right_full
+MATERIAL wall_cladding_steel
+FEATURE trapeza_sheet
+TYPE SWEEP
+PROFILE trapeza_wall_right_075
+PATH wall_right_bottom wall_right_top
+END
+END
+
+# Selected CAE 80x8 longitudinal and roof bracing from the calculation-note family.
+BODY wall_brace_left_rise
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH left_brace_a left_brace_b
+END
+END
+BODY wall_brace_left_fall
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH left_brace_c left_brace_d
+END
+END
+BODY wall_brace_right_rise
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH right_brace_a right_brace_b
+END
+END
+BODY wall_brace_right_fall
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH right_brace_c right_brace_d
+END
+END
+BODY roof_brace_left
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH roof_brace_a roof_brace_b
+END
+END
+BODY roof_brace_right
+MATERIAL primary_steel
+FEATURE angle_brace
+TYPE SWEEP
+PROFILE cae80x8_section
+PATH roof_brace_c roof_brace_d
+END
+END
+
+# Purchased anchors and bolts are intentionally not represented by sample or
+# floating solids. Their controlled total quantities remain in CONNECT records;
+# exact lengths, holes, nuts and washers are open procurement data.
+# Eleven portal occurrences.
+INSTANCE foundation_s1_left_02 OF foundation_s1_left AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_03 OF foundation_s1_left AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_04 OF foundation_s1_left AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_05 OF foundation_s1_left AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_06 OF foundation_s1_left AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_07 OF foundation_s1_left AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_08 OF foundation_s1_left AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_09 OF foundation_s1_left AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_10 OF foundation_s1_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s1_left_11 OF foundation_s1_left AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_02 OF foundation_s2_right AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_03 OF foundation_s2_right AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_04 OF foundation_s2_right AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_05 OF foundation_s2_right AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_06 OF foundation_s2_right AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_07 OF foundation_s2_right AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_08 OF foundation_s2_right AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_09 OF foundation_s2_right AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_10 OF foundation_s2_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE foundation_s2_right_11 OF foundation_s2_right AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_02 OF base_plate_left AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_03 OF base_plate_left AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_04 OF base_plate_left AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_05 OF base_plate_left AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_06 OF base_plate_left AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_07 OF base_plate_left AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_08 OF base_plate_left AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_09 OF base_plate_left AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_10 OF base_plate_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_left_11 OF base_plate_left AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_02 OF base_plate_right AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_03 OF base_plate_right AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_04 OF base_plate_right AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_05 OF base_plate_right AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_06 OF base_plate_right AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_07 OF base_plate_right AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_08 OF base_plate_right AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_09 OF base_plate_right AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_10 OF base_plate_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE base_plate_right_11 OF base_plate_right AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_02 OF portal_column_left AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_03 OF portal_column_left AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_04 OF portal_column_left AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_05 OF portal_column_left AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_06 OF portal_column_left AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_07 OF portal_column_left AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_08 OF portal_column_left AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_09 OF portal_column_left AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_10 OF portal_column_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_left_11 OF portal_column_left AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_02 OF portal_column_right AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_03 OF portal_column_right AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_04 OF portal_column_right AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_05 OF portal_column_right AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_06 OF portal_column_right AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_07 OF portal_column_right AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_08 OF portal_column_right AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_09 OF portal_column_right AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_10 OF portal_column_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_column_right_11 OF portal_column_right AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_02 OF portal_rafter_left AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_03 OF portal_rafter_left AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_04 OF portal_rafter_left AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_05 OF portal_rafter_left AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_06 OF portal_rafter_left AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_07 OF portal_rafter_left AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_08 OF portal_rafter_left AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_09 OF portal_rafter_left AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_10 OF portal_rafter_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_left_11 OF portal_rafter_left AT frame_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_02 OF portal_rafter_right AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_03 OF portal_rafter_right AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_04 OF portal_rafter_right AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_05 OF portal_rafter_right AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_06 OF portal_rafter_right AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_07 OF portal_rafter_right AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_08 OF portal_rafter_right AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_09 OF portal_rafter_right AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_10 OF portal_rafter_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE portal_rafter_right_11 OF portal_rafter_right AT frame_10 ROTATION 0 deg 0 deg 0 deg
+
+# Ten longitudinal segment occurrences per line.
+INSTANCE eave_beam_left_02 OF eave_beam_left AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_03 OF eave_beam_left AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_04 OF eave_beam_left AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_05 OF eave_beam_left AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_06 OF eave_beam_left AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_07 OF eave_beam_left AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_08 OF eave_beam_left AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_09 OF eave_beam_left AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_left_10 OF eave_beam_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_02 OF eave_beam_right AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_03 OF eave_beam_right AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_04 OF eave_beam_right AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_05 OF eave_beam_right AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_06 OF eave_beam_right AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_07 OF eave_beam_right AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_08 OF eave_beam_right AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_09 OF eave_beam_right AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE eave_beam_right_10 OF eave_beam_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_02 OF ridge_beam AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_03 OF ridge_beam AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_04 OF ridge_beam AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_05 OF ridge_beam AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_06 OF ridge_beam AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_07 OF ridge_beam AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_08 OF ridge_beam AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_09 OF ridge_beam AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE ridge_beam_10 OF ridge_beam AT frame_9 ROTATION 0 deg 0 deg 0 deg
+
+# Six purlin lines x ten bays = sixty genuine Z-section occurrences.
+INSTANCE purlin_l1_b02 OF roof_purlin_z250x3 AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b03 OF roof_purlin_z250x3 AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b04 OF roof_purlin_z250x3 AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b05 OF roof_purlin_z250x3 AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b06 OF roof_purlin_z250x3 AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b07 OF roof_purlin_z250x3 AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b08 OF roof_purlin_z250x3 AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b09 OF roof_purlin_z250x3 AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l1_b10 OF roof_purlin_z250x3 AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b01 OF roof_purlin_z250x3 AT p_l2_0 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b02 OF roof_purlin_z250x3 AT p_l2_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b03 OF roof_purlin_z250x3 AT p_l2_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b04 OF roof_purlin_z250x3 AT p_l2_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b05 OF roof_purlin_z250x3 AT p_l2_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b06 OF roof_purlin_z250x3 AT p_l2_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b07 OF roof_purlin_z250x3 AT p_l2_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b08 OF roof_purlin_z250x3 AT p_l2_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b09 OF roof_purlin_z250x3 AT p_l2_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l2_b10 OF roof_purlin_z250x3 AT p_l2_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b01 OF roof_purlin_z250x3 AT p_l3_0 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b02 OF roof_purlin_z250x3 AT p_l3_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b03 OF roof_purlin_z250x3 AT p_l3_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b04 OF roof_purlin_z250x3 AT p_l3_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b05 OF roof_purlin_z250x3 AT p_l3_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b06 OF roof_purlin_z250x3 AT p_l3_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b07 OF roof_purlin_z250x3 AT p_l3_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b08 OF roof_purlin_z250x3 AT p_l3_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b09 OF roof_purlin_z250x3 AT p_l3_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_l3_b10 OF roof_purlin_z250x3 AT p_l3_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b02 OF roof_purlin_right_z250x3 AT frame_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b03 OF roof_purlin_right_z250x3 AT frame_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b04 OF roof_purlin_right_z250x3 AT frame_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b05 OF roof_purlin_right_z250x3 AT frame_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b06 OF roof_purlin_right_z250x3 AT frame_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b07 OF roof_purlin_right_z250x3 AT frame_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b08 OF roof_purlin_right_z250x3 AT frame_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b09 OF roof_purlin_right_z250x3 AT frame_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r1_b10 OF roof_purlin_right_z250x3 AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b01 OF roof_purlin_right_z250x3 AT pr2_0 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b02 OF roof_purlin_right_z250x3 AT pr2_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b03 OF roof_purlin_right_z250x3 AT pr2_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b04 OF roof_purlin_right_z250x3 AT pr2_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b05 OF roof_purlin_right_z250x3 AT pr2_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b06 OF roof_purlin_right_z250x3 AT pr2_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b07 OF roof_purlin_right_z250x3 AT pr2_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b08 OF roof_purlin_right_z250x3 AT pr2_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b09 OF roof_purlin_right_z250x3 AT pr2_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r2_b10 OF roof_purlin_right_z250x3 AT pr2_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b01 OF roof_purlin_right_z250x3 AT pr3_0 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b02 OF roof_purlin_right_z250x3 AT pr3_1 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b03 OF roof_purlin_right_z250x3 AT pr3_2 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b04 OF roof_purlin_right_z250x3 AT pr3_3 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b05 OF roof_purlin_right_z250x3 AT pr3_4 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b06 OF roof_purlin_right_z250x3 AT pr3_5 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b07 OF roof_purlin_right_z250x3 AT pr3_6 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b08 OF roof_purlin_right_z250x3 AT pr3_7 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b09 OF roof_purlin_right_z250x3 AT pr3_8 ROTATION 0 deg 0 deg 0 deg
+INSTANCE purlin_r3_b10 OF roof_purlin_right_z250x3 AT pr3_9 ROTATION 0 deg 0 deg 0 deg
+
+# Roof and longitudinal-wall envelope occurrences. Trimmed roof-edge bodies
+# are defined directly at Y=89270 mm and complete the exact 90000 mm coverage.
+INSTANCE roof_panel_left_lower_full_02 OF roof_panel_left_lower_full AT roof_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_03 OF roof_panel_left_lower_full AT roof_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_04 OF roof_panel_left_lower_full AT roof_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_05 OF roof_panel_left_lower_full AT roof_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_06 OF roof_panel_left_lower_full AT roof_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_07 OF roof_panel_left_lower_full AT roof_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_08 OF roof_panel_left_lower_full AT roof_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_09 OF roof_panel_left_lower_full AT roof_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_10 OF roof_panel_left_lower_full AT roof_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_11 OF roof_panel_left_lower_full AT roof_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_12 OF roof_panel_left_lower_full AT roof_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_13 OF roof_panel_left_lower_full AT roof_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_14 OF roof_panel_left_lower_full AT roof_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_15 OF roof_panel_left_lower_full AT roof_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_16 OF roof_panel_left_lower_full AT roof_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_17 OF roof_panel_left_lower_full AT roof_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_18 OF roof_panel_left_lower_full AT roof_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_19 OF roof_panel_left_lower_full AT roof_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_20 OF roof_panel_left_lower_full AT roof_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_21 OF roof_panel_left_lower_full AT roof_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_22 OF roof_panel_left_lower_full AT roof_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_23 OF roof_panel_left_lower_full AT roof_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_24 OF roof_panel_left_lower_full AT roof_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_25 OF roof_panel_left_lower_full AT roof_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_26 OF roof_panel_left_lower_full AT roof_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_27 OF roof_panel_left_lower_full AT roof_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_28 OF roof_panel_left_lower_full AT roof_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_29 OF roof_panel_left_lower_full AT roof_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_30 OF roof_panel_left_lower_full AT roof_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_31 OF roof_panel_left_lower_full AT roof_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_32 OF roof_panel_left_lower_full AT roof_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_33 OF roof_panel_left_lower_full AT roof_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_34 OF roof_panel_left_lower_full AT roof_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_35 OF roof_panel_left_lower_full AT roof_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_36 OF roof_panel_left_lower_full AT roof_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_37 OF roof_panel_left_lower_full AT roof_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_38 OF roof_panel_left_lower_full AT roof_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_39 OF roof_panel_left_lower_full AT roof_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_40 OF roof_panel_left_lower_full AT roof_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_41 OF roof_panel_left_lower_full AT roof_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_42 OF roof_panel_left_lower_full AT roof_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_43 OF roof_panel_left_lower_full AT roof_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_44 OF roof_panel_left_lower_full AT roof_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_45 OF roof_panel_left_lower_full AT roof_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_46 OF roof_panel_left_lower_full AT roof_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_47 OF roof_panel_left_lower_full AT roof_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_48 OF roof_panel_left_lower_full AT roof_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_49 OF roof_panel_left_lower_full AT roof_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_50 OF roof_panel_left_lower_full AT roof_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_51 OF roof_panel_left_lower_full AT roof_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_52 OF roof_panel_left_lower_full AT roof_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_53 OF roof_panel_left_lower_full AT roof_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_54 OF roof_panel_left_lower_full AT roof_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_55 OF roof_panel_left_lower_full AT roof_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_56 OF roof_panel_left_lower_full AT roof_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_57 OF roof_panel_left_lower_full AT roof_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_58 OF roof_panel_left_lower_full AT roof_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_59 OF roof_panel_left_lower_full AT roof_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_60 OF roof_panel_left_lower_full AT roof_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_61 OF roof_panel_left_lower_full AT roof_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_62 OF roof_panel_left_lower_full AT roof_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_63 OF roof_panel_left_lower_full AT roof_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_64 OF roof_panel_left_lower_full AT roof_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_65 OF roof_panel_left_lower_full AT roof_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_66 OF roof_panel_left_lower_full AT roof_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_67 OF roof_panel_left_lower_full AT roof_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_68 OF roof_panel_left_lower_full AT roof_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_69 OF roof_panel_left_lower_full AT roof_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_70 OF roof_panel_left_lower_full AT roof_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_71 OF roof_panel_left_lower_full AT roof_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_72 OF roof_panel_left_lower_full AT roof_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_73 OF roof_panel_left_lower_full AT roof_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_74 OF roof_panel_left_lower_full AT roof_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_75 OF roof_panel_left_lower_full AT roof_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_76 OF roof_panel_left_lower_full AT roof_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_77 OF roof_panel_left_lower_full AT roof_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_78 OF roof_panel_left_lower_full AT roof_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_lower_full_79 OF roof_panel_left_lower_full AT roof_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_02 OF roof_panel_left_upper_full AT roof_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_03 OF roof_panel_left_upper_full AT roof_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_04 OF roof_panel_left_upper_full AT roof_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_05 OF roof_panel_left_upper_full AT roof_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_06 OF roof_panel_left_upper_full AT roof_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_07 OF roof_panel_left_upper_full AT roof_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_08 OF roof_panel_left_upper_full AT roof_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_09 OF roof_panel_left_upper_full AT roof_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_10 OF roof_panel_left_upper_full AT roof_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_11 OF roof_panel_left_upper_full AT roof_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_12 OF roof_panel_left_upper_full AT roof_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_13 OF roof_panel_left_upper_full AT roof_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_14 OF roof_panel_left_upper_full AT roof_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_15 OF roof_panel_left_upper_full AT roof_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_16 OF roof_panel_left_upper_full AT roof_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_17 OF roof_panel_left_upper_full AT roof_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_18 OF roof_panel_left_upper_full AT roof_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_19 OF roof_panel_left_upper_full AT roof_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_20 OF roof_panel_left_upper_full AT roof_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_21 OF roof_panel_left_upper_full AT roof_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_22 OF roof_panel_left_upper_full AT roof_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_23 OF roof_panel_left_upper_full AT roof_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_24 OF roof_panel_left_upper_full AT roof_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_25 OF roof_panel_left_upper_full AT roof_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_26 OF roof_panel_left_upper_full AT roof_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_27 OF roof_panel_left_upper_full AT roof_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_28 OF roof_panel_left_upper_full AT roof_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_29 OF roof_panel_left_upper_full AT roof_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_30 OF roof_panel_left_upper_full AT roof_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_31 OF roof_panel_left_upper_full AT roof_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_32 OF roof_panel_left_upper_full AT roof_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_33 OF roof_panel_left_upper_full AT roof_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_34 OF roof_panel_left_upper_full AT roof_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_35 OF roof_panel_left_upper_full AT roof_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_36 OF roof_panel_left_upper_full AT roof_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_37 OF roof_panel_left_upper_full AT roof_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_38 OF roof_panel_left_upper_full AT roof_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_39 OF roof_panel_left_upper_full AT roof_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_40 OF roof_panel_left_upper_full AT roof_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_41 OF roof_panel_left_upper_full AT roof_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_42 OF roof_panel_left_upper_full AT roof_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_43 OF roof_panel_left_upper_full AT roof_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_44 OF roof_panel_left_upper_full AT roof_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_45 OF roof_panel_left_upper_full AT roof_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_46 OF roof_panel_left_upper_full AT roof_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_47 OF roof_panel_left_upper_full AT roof_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_48 OF roof_panel_left_upper_full AT roof_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_49 OF roof_panel_left_upper_full AT roof_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_50 OF roof_panel_left_upper_full AT roof_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_51 OF roof_panel_left_upper_full AT roof_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_52 OF roof_panel_left_upper_full AT roof_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_53 OF roof_panel_left_upper_full AT roof_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_54 OF roof_panel_left_upper_full AT roof_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_55 OF roof_panel_left_upper_full AT roof_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_56 OF roof_panel_left_upper_full AT roof_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_57 OF roof_panel_left_upper_full AT roof_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_58 OF roof_panel_left_upper_full AT roof_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_59 OF roof_panel_left_upper_full AT roof_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_60 OF roof_panel_left_upper_full AT roof_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_61 OF roof_panel_left_upper_full AT roof_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_62 OF roof_panel_left_upper_full AT roof_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_63 OF roof_panel_left_upper_full AT roof_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_64 OF roof_panel_left_upper_full AT roof_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_65 OF roof_panel_left_upper_full AT roof_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_66 OF roof_panel_left_upper_full AT roof_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_67 OF roof_panel_left_upper_full AT roof_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_68 OF roof_panel_left_upper_full AT roof_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_69 OF roof_panel_left_upper_full AT roof_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_70 OF roof_panel_left_upper_full AT roof_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_71 OF roof_panel_left_upper_full AT roof_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_72 OF roof_panel_left_upper_full AT roof_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_73 OF roof_panel_left_upper_full AT roof_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_74 OF roof_panel_left_upper_full AT roof_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_75 OF roof_panel_left_upper_full AT roof_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_76 OF roof_panel_left_upper_full AT roof_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_77 OF roof_panel_left_upper_full AT roof_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_78 OF roof_panel_left_upper_full AT roof_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_left_upper_full_79 OF roof_panel_left_upper_full AT roof_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_02 OF roof_panel_right_upper_full AT roof_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_03 OF roof_panel_right_upper_full AT roof_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_04 OF roof_panel_right_upper_full AT roof_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_05 OF roof_panel_right_upper_full AT roof_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_06 OF roof_panel_right_upper_full AT roof_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_07 OF roof_panel_right_upper_full AT roof_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_08 OF roof_panel_right_upper_full AT roof_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_09 OF roof_panel_right_upper_full AT roof_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_10 OF roof_panel_right_upper_full AT roof_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_11 OF roof_panel_right_upper_full AT roof_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_12 OF roof_panel_right_upper_full AT roof_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_13 OF roof_panel_right_upper_full AT roof_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_14 OF roof_panel_right_upper_full AT roof_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_15 OF roof_panel_right_upper_full AT roof_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_16 OF roof_panel_right_upper_full AT roof_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_17 OF roof_panel_right_upper_full AT roof_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_18 OF roof_panel_right_upper_full AT roof_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_19 OF roof_panel_right_upper_full AT roof_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_20 OF roof_panel_right_upper_full AT roof_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_21 OF roof_panel_right_upper_full AT roof_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_22 OF roof_panel_right_upper_full AT roof_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_23 OF roof_panel_right_upper_full AT roof_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_24 OF roof_panel_right_upper_full AT roof_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_25 OF roof_panel_right_upper_full AT roof_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_26 OF roof_panel_right_upper_full AT roof_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_27 OF roof_panel_right_upper_full AT roof_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_28 OF roof_panel_right_upper_full AT roof_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_29 OF roof_panel_right_upper_full AT roof_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_30 OF roof_panel_right_upper_full AT roof_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_31 OF roof_panel_right_upper_full AT roof_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_32 OF roof_panel_right_upper_full AT roof_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_33 OF roof_panel_right_upper_full AT roof_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_34 OF roof_panel_right_upper_full AT roof_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_35 OF roof_panel_right_upper_full AT roof_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_36 OF roof_panel_right_upper_full AT roof_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_37 OF roof_panel_right_upper_full AT roof_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_38 OF roof_panel_right_upper_full AT roof_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_39 OF roof_panel_right_upper_full AT roof_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_40 OF roof_panel_right_upper_full AT roof_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_41 OF roof_panel_right_upper_full AT roof_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_42 OF roof_panel_right_upper_full AT roof_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_43 OF roof_panel_right_upper_full AT roof_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_44 OF roof_panel_right_upper_full AT roof_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_45 OF roof_panel_right_upper_full AT roof_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_46 OF roof_panel_right_upper_full AT roof_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_47 OF roof_panel_right_upper_full AT roof_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_48 OF roof_panel_right_upper_full AT roof_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_49 OF roof_panel_right_upper_full AT roof_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_50 OF roof_panel_right_upper_full AT roof_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_51 OF roof_panel_right_upper_full AT roof_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_52 OF roof_panel_right_upper_full AT roof_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_53 OF roof_panel_right_upper_full AT roof_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_54 OF roof_panel_right_upper_full AT roof_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_55 OF roof_panel_right_upper_full AT roof_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_56 OF roof_panel_right_upper_full AT roof_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_57 OF roof_panel_right_upper_full AT roof_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_58 OF roof_panel_right_upper_full AT roof_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_59 OF roof_panel_right_upper_full AT roof_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_60 OF roof_panel_right_upper_full AT roof_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_61 OF roof_panel_right_upper_full AT roof_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_62 OF roof_panel_right_upper_full AT roof_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_63 OF roof_panel_right_upper_full AT roof_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_64 OF roof_panel_right_upper_full AT roof_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_65 OF roof_panel_right_upper_full AT roof_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_66 OF roof_panel_right_upper_full AT roof_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_67 OF roof_panel_right_upper_full AT roof_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_68 OF roof_panel_right_upper_full AT roof_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_69 OF roof_panel_right_upper_full AT roof_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_70 OF roof_panel_right_upper_full AT roof_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_71 OF roof_panel_right_upper_full AT roof_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_72 OF roof_panel_right_upper_full AT roof_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_73 OF roof_panel_right_upper_full AT roof_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_74 OF roof_panel_right_upper_full AT roof_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_75 OF roof_panel_right_upper_full AT roof_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_76 OF roof_panel_right_upper_full AT roof_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_77 OF roof_panel_right_upper_full AT roof_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_78 OF roof_panel_right_upper_full AT roof_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_upper_full_79 OF roof_panel_right_upper_full AT roof_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_02 OF roof_panel_right_lower_full AT roof_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_03 OF roof_panel_right_lower_full AT roof_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_04 OF roof_panel_right_lower_full AT roof_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_05 OF roof_panel_right_lower_full AT roof_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_06 OF roof_panel_right_lower_full AT roof_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_07 OF roof_panel_right_lower_full AT roof_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_08 OF roof_panel_right_lower_full AT roof_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_09 OF roof_panel_right_lower_full AT roof_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_10 OF roof_panel_right_lower_full AT roof_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_11 OF roof_panel_right_lower_full AT roof_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_12 OF roof_panel_right_lower_full AT roof_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_13 OF roof_panel_right_lower_full AT roof_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_14 OF roof_panel_right_lower_full AT roof_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_15 OF roof_panel_right_lower_full AT roof_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_16 OF roof_panel_right_lower_full AT roof_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_17 OF roof_panel_right_lower_full AT roof_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_18 OF roof_panel_right_lower_full AT roof_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_19 OF roof_panel_right_lower_full AT roof_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_20 OF roof_panel_right_lower_full AT roof_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_21 OF roof_panel_right_lower_full AT roof_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_22 OF roof_panel_right_lower_full AT roof_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_23 OF roof_panel_right_lower_full AT roof_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_24 OF roof_panel_right_lower_full AT roof_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_25 OF roof_panel_right_lower_full AT roof_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_26 OF roof_panel_right_lower_full AT roof_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_27 OF roof_panel_right_lower_full AT roof_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_28 OF roof_panel_right_lower_full AT roof_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_29 OF roof_panel_right_lower_full AT roof_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_30 OF roof_panel_right_lower_full AT roof_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_31 OF roof_panel_right_lower_full AT roof_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_32 OF roof_panel_right_lower_full AT roof_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_33 OF roof_panel_right_lower_full AT roof_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_34 OF roof_panel_right_lower_full AT roof_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_35 OF roof_panel_right_lower_full AT roof_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_36 OF roof_panel_right_lower_full AT roof_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_37 OF roof_panel_right_lower_full AT roof_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_38 OF roof_panel_right_lower_full AT roof_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_39 OF roof_panel_right_lower_full AT roof_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_40 OF roof_panel_right_lower_full AT roof_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_41 OF roof_panel_right_lower_full AT roof_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_42 OF roof_panel_right_lower_full AT roof_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_43 OF roof_panel_right_lower_full AT roof_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_44 OF roof_panel_right_lower_full AT roof_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_45 OF roof_panel_right_lower_full AT roof_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_46 OF roof_panel_right_lower_full AT roof_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_47 OF roof_panel_right_lower_full AT roof_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_48 OF roof_panel_right_lower_full AT roof_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_49 OF roof_panel_right_lower_full AT roof_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_50 OF roof_panel_right_lower_full AT roof_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_51 OF roof_panel_right_lower_full AT roof_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_52 OF roof_panel_right_lower_full AT roof_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_53 OF roof_panel_right_lower_full AT roof_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_54 OF roof_panel_right_lower_full AT roof_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_55 OF roof_panel_right_lower_full AT roof_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_56 OF roof_panel_right_lower_full AT roof_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_57 OF roof_panel_right_lower_full AT roof_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_58 OF roof_panel_right_lower_full AT roof_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_59 OF roof_panel_right_lower_full AT roof_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_60 OF roof_panel_right_lower_full AT roof_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_61 OF roof_panel_right_lower_full AT roof_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_62 OF roof_panel_right_lower_full AT roof_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_63 OF roof_panel_right_lower_full AT roof_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_64 OF roof_panel_right_lower_full AT roof_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_65 OF roof_panel_right_lower_full AT roof_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_66 OF roof_panel_right_lower_full AT roof_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_67 OF roof_panel_right_lower_full AT roof_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_68 OF roof_panel_right_lower_full AT roof_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_69 OF roof_panel_right_lower_full AT roof_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_70 OF roof_panel_right_lower_full AT roof_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_71 OF roof_panel_right_lower_full AT roof_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_72 OF roof_panel_right_lower_full AT roof_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_73 OF roof_panel_right_lower_full AT roof_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_74 OF roof_panel_right_lower_full AT roof_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_75 OF roof_panel_right_lower_full AT roof_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_76 OF roof_panel_right_lower_full AT roof_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_77 OF roof_panel_right_lower_full AT roof_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_78 OF roof_panel_right_lower_full AT roof_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_panel_right_lower_full_79 OF roof_panel_right_lower_full AT roof_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_02 OF wall_cladding_left_full AT wall_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_03 OF wall_cladding_left_full AT wall_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_04 OF wall_cladding_left_full AT wall_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_05 OF wall_cladding_left_full AT wall_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_06 OF wall_cladding_left_full AT wall_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_07 OF wall_cladding_left_full AT wall_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_08 OF wall_cladding_left_full AT wall_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_09 OF wall_cladding_left_full AT wall_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_10 OF wall_cladding_left_full AT wall_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_11 OF wall_cladding_left_full AT wall_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_12 OF wall_cladding_left_full AT wall_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_13 OF wall_cladding_left_full AT wall_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_14 OF wall_cladding_left_full AT wall_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_15 OF wall_cladding_left_full AT wall_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_16 OF wall_cladding_left_full AT wall_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_17 OF wall_cladding_left_full AT wall_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_18 OF wall_cladding_left_full AT wall_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_19 OF wall_cladding_left_full AT wall_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_20 OF wall_cladding_left_full AT wall_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_21 OF wall_cladding_left_full AT wall_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_22 OF wall_cladding_left_full AT wall_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_23 OF wall_cladding_left_full AT wall_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_24 OF wall_cladding_left_full AT wall_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_25 OF wall_cladding_left_full AT wall_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_26 OF wall_cladding_left_full AT wall_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_27 OF wall_cladding_left_full AT wall_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_28 OF wall_cladding_left_full AT wall_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_29 OF wall_cladding_left_full AT wall_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_30 OF wall_cladding_left_full AT wall_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_31 OF wall_cladding_left_full AT wall_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_32 OF wall_cladding_left_full AT wall_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_33 OF wall_cladding_left_full AT wall_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_34 OF wall_cladding_left_full AT wall_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_35 OF wall_cladding_left_full AT wall_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_36 OF wall_cladding_left_full AT wall_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_37 OF wall_cladding_left_full AT wall_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_38 OF wall_cladding_left_full AT wall_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_39 OF wall_cladding_left_full AT wall_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_40 OF wall_cladding_left_full AT wall_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_41 OF wall_cladding_left_full AT wall_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_42 OF wall_cladding_left_full AT wall_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_43 OF wall_cladding_left_full AT wall_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_44 OF wall_cladding_left_full AT wall_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_45 OF wall_cladding_left_full AT wall_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_46 OF wall_cladding_left_full AT wall_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_47 OF wall_cladding_left_full AT wall_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_48 OF wall_cladding_left_full AT wall_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_49 OF wall_cladding_left_full AT wall_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_50 OF wall_cladding_left_full AT wall_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_51 OF wall_cladding_left_full AT wall_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_52 OF wall_cladding_left_full AT wall_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_53 OF wall_cladding_left_full AT wall_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_54 OF wall_cladding_left_full AT wall_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_55 OF wall_cladding_left_full AT wall_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_56 OF wall_cladding_left_full AT wall_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_57 OF wall_cladding_left_full AT wall_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_58 OF wall_cladding_left_full AT wall_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_59 OF wall_cladding_left_full AT wall_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_60 OF wall_cladding_left_full AT wall_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_61 OF wall_cladding_left_full AT wall_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_62 OF wall_cladding_left_full AT wall_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_63 OF wall_cladding_left_full AT wall_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_64 OF wall_cladding_left_full AT wall_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_65 OF wall_cladding_left_full AT wall_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_66 OF wall_cladding_left_full AT wall_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_67 OF wall_cladding_left_full AT wall_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_68 OF wall_cladding_left_full AT wall_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_69 OF wall_cladding_left_full AT wall_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_70 OF wall_cladding_left_full AT wall_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_71 OF wall_cladding_left_full AT wall_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_72 OF wall_cladding_left_full AT wall_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_73 OF wall_cladding_left_full AT wall_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_74 OF wall_cladding_left_full AT wall_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_75 OF wall_cladding_left_full AT wall_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_76 OF wall_cladding_left_full AT wall_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_77 OF wall_cladding_left_full AT wall_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_78 OF wall_cladding_left_full AT wall_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_79 OF wall_cladding_left_full AT wall_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_80 OF wall_cladding_left_full AT wall_sheet_y_79 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_81 OF wall_cladding_left_full AT wall_sheet_y_80 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_82 OF wall_cladding_left_full AT wall_sheet_y_81 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_83 OF wall_cladding_left_full AT wall_sheet_y_82 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_84 OF wall_cladding_left_full AT wall_sheet_y_83 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_85 OF wall_cladding_left_full AT wall_sheet_y_84 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_86 OF wall_cladding_left_full AT wall_sheet_y_85 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_87 OF wall_cladding_left_full AT wall_sheet_y_86 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_88 OF wall_cladding_left_full AT wall_sheet_y_87 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_89 OF wall_cladding_left_full AT wall_sheet_y_88 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_left_full_90 OF wall_cladding_left_full AT wall_sheet_y_89 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_02 OF wall_cladding_right_full AT wall_sheet_y_01 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_03 OF wall_cladding_right_full AT wall_sheet_y_02 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_04 OF wall_cladding_right_full AT wall_sheet_y_03 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_05 OF wall_cladding_right_full AT wall_sheet_y_04 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_06 OF wall_cladding_right_full AT wall_sheet_y_05 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_07 OF wall_cladding_right_full AT wall_sheet_y_06 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_08 OF wall_cladding_right_full AT wall_sheet_y_07 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_09 OF wall_cladding_right_full AT wall_sheet_y_08 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_10 OF wall_cladding_right_full AT wall_sheet_y_09 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_11 OF wall_cladding_right_full AT wall_sheet_y_10 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_12 OF wall_cladding_right_full AT wall_sheet_y_11 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_13 OF wall_cladding_right_full AT wall_sheet_y_12 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_14 OF wall_cladding_right_full AT wall_sheet_y_13 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_15 OF wall_cladding_right_full AT wall_sheet_y_14 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_16 OF wall_cladding_right_full AT wall_sheet_y_15 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_17 OF wall_cladding_right_full AT wall_sheet_y_16 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_18 OF wall_cladding_right_full AT wall_sheet_y_17 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_19 OF wall_cladding_right_full AT wall_sheet_y_18 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_20 OF wall_cladding_right_full AT wall_sheet_y_19 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_21 OF wall_cladding_right_full AT wall_sheet_y_20 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_22 OF wall_cladding_right_full AT wall_sheet_y_21 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_23 OF wall_cladding_right_full AT wall_sheet_y_22 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_24 OF wall_cladding_right_full AT wall_sheet_y_23 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_25 OF wall_cladding_right_full AT wall_sheet_y_24 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_26 OF wall_cladding_right_full AT wall_sheet_y_25 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_27 OF wall_cladding_right_full AT wall_sheet_y_26 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_28 OF wall_cladding_right_full AT wall_sheet_y_27 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_29 OF wall_cladding_right_full AT wall_sheet_y_28 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_30 OF wall_cladding_right_full AT wall_sheet_y_29 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_31 OF wall_cladding_right_full AT wall_sheet_y_30 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_32 OF wall_cladding_right_full AT wall_sheet_y_31 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_33 OF wall_cladding_right_full AT wall_sheet_y_32 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_34 OF wall_cladding_right_full AT wall_sheet_y_33 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_35 OF wall_cladding_right_full AT wall_sheet_y_34 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_36 OF wall_cladding_right_full AT wall_sheet_y_35 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_37 OF wall_cladding_right_full AT wall_sheet_y_36 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_38 OF wall_cladding_right_full AT wall_sheet_y_37 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_39 OF wall_cladding_right_full AT wall_sheet_y_38 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_40 OF wall_cladding_right_full AT wall_sheet_y_39 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_41 OF wall_cladding_right_full AT wall_sheet_y_40 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_42 OF wall_cladding_right_full AT wall_sheet_y_41 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_43 OF wall_cladding_right_full AT wall_sheet_y_42 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_44 OF wall_cladding_right_full AT wall_sheet_y_43 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_45 OF wall_cladding_right_full AT wall_sheet_y_44 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_46 OF wall_cladding_right_full AT wall_sheet_y_45 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_47 OF wall_cladding_right_full AT wall_sheet_y_46 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_48 OF wall_cladding_right_full AT wall_sheet_y_47 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_49 OF wall_cladding_right_full AT wall_sheet_y_48 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_50 OF wall_cladding_right_full AT wall_sheet_y_49 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_51 OF wall_cladding_right_full AT wall_sheet_y_50 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_52 OF wall_cladding_right_full AT wall_sheet_y_51 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_53 OF wall_cladding_right_full AT wall_sheet_y_52 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_54 OF wall_cladding_right_full AT wall_sheet_y_53 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_55 OF wall_cladding_right_full AT wall_sheet_y_54 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_56 OF wall_cladding_right_full AT wall_sheet_y_55 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_57 OF wall_cladding_right_full AT wall_sheet_y_56 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_58 OF wall_cladding_right_full AT wall_sheet_y_57 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_59 OF wall_cladding_right_full AT wall_sheet_y_58 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_60 OF wall_cladding_right_full AT wall_sheet_y_59 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_61 OF wall_cladding_right_full AT wall_sheet_y_60 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_62 OF wall_cladding_right_full AT wall_sheet_y_61 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_63 OF wall_cladding_right_full AT wall_sheet_y_62 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_64 OF wall_cladding_right_full AT wall_sheet_y_63 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_65 OF wall_cladding_right_full AT wall_sheet_y_64 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_66 OF wall_cladding_right_full AT wall_sheet_y_65 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_67 OF wall_cladding_right_full AT wall_sheet_y_66 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_68 OF wall_cladding_right_full AT wall_sheet_y_67 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_69 OF wall_cladding_right_full AT wall_sheet_y_68 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_70 OF wall_cladding_right_full AT wall_sheet_y_69 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_71 OF wall_cladding_right_full AT wall_sheet_y_70 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_72 OF wall_cladding_right_full AT wall_sheet_y_71 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_73 OF wall_cladding_right_full AT wall_sheet_y_72 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_74 OF wall_cladding_right_full AT wall_sheet_y_73 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_75 OF wall_cladding_right_full AT wall_sheet_y_74 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_76 OF wall_cladding_right_full AT wall_sheet_y_75 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_77 OF wall_cladding_right_full AT wall_sheet_y_76 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_78 OF wall_cladding_right_full AT wall_sheet_y_77 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_79 OF wall_cladding_right_full AT wall_sheet_y_78 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_80 OF wall_cladding_right_full AT wall_sheet_y_79 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_81 OF wall_cladding_right_full AT wall_sheet_y_80 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_82 OF wall_cladding_right_full AT wall_sheet_y_81 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_83 OF wall_cladding_right_full AT wall_sheet_y_82 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_84 OF wall_cladding_right_full AT wall_sheet_y_83 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_85 OF wall_cladding_right_full AT wall_sheet_y_84 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_86 OF wall_cladding_right_full AT wall_sheet_y_85 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_87 OF wall_cladding_right_full AT wall_sheet_y_86 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_88 OF wall_cladding_right_full AT wall_sheet_y_87 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_89 OF wall_cladding_right_full AT wall_sheet_y_88 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_cladding_right_full_90 OF wall_cladding_right_full AT wall_sheet_y_89 ROTATION 0 deg 0 deg 0 deg
+
+# Repeat bracing in the final bay as shown by the end-bay stability intent.
+INSTANCE wall_brace_left_rise_end OF wall_brace_left_rise AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_brace_left_fall_end OF wall_brace_left_fall AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_brace_right_rise_end OF wall_brace_right_rise AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE wall_brace_right_fall_end OF wall_brace_right_fall AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_brace_left_end OF roof_brace_left AT frame_9 ROTATION 0 deg 0 deg 0 deg
+INSTANCE roof_brace_right_end OF roof_brace_right AT frame_9 ROTATION 0 deg 0 deg 0 deg
+
+# Two-sided assembly contracts. Quantities are project totals from the reported
+# connection arrangements, not a claim that every local detail is construction-ready.
+INTERFACE left_foundation_top BODY foundation_s1_left AT left_foundation_plate_joint AXIS vertical_up TYPE MOUNT SIZE 900 mm
+INTERFACE left_plate_bottom BODY base_plate_left AT left_foundation_plate_joint AXIS vertical_down TYPE FLANGE SIZE 900 mm
+INTERFACE left_plate_top BODY base_plate_left AT left_plate_column_joint AXIS vertical_up TYPE FLANGE SIZE 600 mm
+INTERFACE left_column_base BODY portal_column_left AT left_plate_column_joint AXIS vertical_down TYPE MOUNT SIZE 600 mm
+INTERFACE right_foundation_top BODY foundation_s2_right AT right_foundation_plate_joint AXIS vertical_up TYPE MOUNT SIZE 620 mm
+INTERFACE right_plate_bottom BODY base_plate_right AT right_foundation_plate_joint AXIS vertical_down TYPE FLANGE SIZE 620 mm
+INTERFACE right_plate_top BODY base_plate_right AT right_plate_column_joint AXIS vertical_up TYPE FLANGE SIZE 600 mm
+INTERFACE right_column_base BODY portal_column_right AT right_plate_column_joint AXIS vertical_down TYPE MOUNT SIZE 600 mm
+INTERFACE left_column_knee BODY portal_column_left AT left_knee_joint AXIS right_out TYPE FLANGE SIZE 880 mm
+INTERFACE left_rafter_knee BODY portal_rafter_left AT left_knee_joint AXIS left_out TYPE MOUNT SIZE 880 mm
+INTERFACE right_column_knee BODY portal_column_right AT right_knee_joint AXIS left_out TYPE FLANGE SIZE 880 mm
+INTERFACE right_rafter_knee BODY portal_rafter_right AT right_knee_joint AXIS right_out TYPE MOUNT SIZE 880 mm
+INTERFACE left_rafter_ridge BODY portal_rafter_left AT ridge_joint AXIS right_out TYPE FLANGE SIZE 900 mm
+INTERFACE right_rafter_ridge BODY portal_rafter_right AT ridge_joint AXIS left_out TYPE FLANGE SIZE 900 mm
+
+CONNECT fixed_base_anchors left_foundation_top left_plate_bottom METHOD BOLTED STANDARD EN_1993_1_8 FASTENER M36_CLASS_8_8 QUANTITY 66 CLEARANCE 2 mm AUTO
+CONNECT pinned_base_anchors right_foundation_top right_plate_bottom METHOD BOLTED STANDARD EN_1993_1_8 FASTENER M36_CLASS_4_6 QUANTITY 22 CLEARANCE 2 mm AUTO
+CONNECT left_column_base_weld left_plate_top left_column_base METHOD WELDED STANDARD EN_ISO_5817 FILLER LINCOLN_LNT_26_ER70S_6_2_4X1000 PROCESS GTAW QUANTITY 11 WELD_SIZE 20 mm WELD_LENGTH 1640 mm FILLER_DIAMETER 2.4 mm STOCK_LENGTH 1000 mm DEPOSITION_EFFICIENCY 0.8 AUTO
+CONNECT right_column_base_weld right_plate_top right_column_base METHOD WELDED STANDARD EN_ISO_5817 FILLER LINCOLN_LNT_26_ER70S_6_2_4X1000 PROCESS GTAW QUANTITY 11 WELD_SIZE 20 mm WELD_LENGTH 1640 mm FILLER_DIAMETER 2.4 mm STOCK_LENGTH 1000 mm DEPOSITION_EFFICIENCY 0.8 AUTO
+CONNECT left_knee_bolts left_column_knee left_rafter_knee METHOD BOLTED STANDARD NF_EN_1993_1_8_2005 FASTENER M27_CLASS_6_8 QUANTITY 220 CLEARANCE 2 mm AUTO
+CONNECT right_knee_bolts right_column_knee right_rafter_knee METHOD BOLTED STANDARD NF_EN_1993_1_8_2005 FASTENER M27_CLASS_6_8 QUANTITY 220 CLEARANCE 2 mm AUTO
+CONNECT ridge_splice_bolts left_rafter_ridge right_rafter_ridge METHOD BOLTED STANDARD NF_EN_1993_1_8_2005 FASTENER M20_CLASS_6_8 QUANTITY 154 CLEARANCE 2 mm AUTO

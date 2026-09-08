@@ -24,6 +24,10 @@ examples/bench/*
 !examples/bench/*.icad
 !examples/bench/*.md
 !examples/bench/*.json
+!examples/bench/hall_clinker/
+examples/bench/hall_clinker/*
+!examples/bench/hall_clinker/*.icad
+!examples/bench/hall_clinker/*.md
 !examples/bench/baseline/
 examples/bench/baseline/*
 !examples/bench/baseline/*.json
